@@ -121,11 +121,98 @@
       </a>
       <a class="flex items-center justify-center font-label-mono-sm text-label-mono-sm text-text-muted hover:text-primary transition-colors uppercase tracking-wider"
         href="https://www.instagram.com/the.mediamovers" target="_blank" rel="noopener">@the.mediamovers</a>
+      <div class="devcredit-drawer-divider" aria-hidden="true"></div>
+      <p class="devcredit-drawer-line">
+        Developed by <button type="button" class="devcredit-btn" data-action="open-dev-credit" aria-haspopup="dialog" aria-label="View developer contact details"><span class="devcredit-name">Aniruddha Sahu</span></button>
+      </p>
     </div>
   </div>
   <main id="app"
     class="w-full pt-20 bg-surface-pitch min-h-screen relative z-10 flex flex-col text-on-surface select-none"></main>
   <div id="modal-root"></div>
+  <!-- ==================== DEVELOPER CREDIT CONTACT POPUP ==================== -->
+  <div id="devcredit-modal"
+    class="fixed inset-0 z-[120] bg-surface-pitch/95 backdrop-blur-md hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0 pointer-events-auto"
+    role="dialog" aria-modal="true" aria-labelledby="devcredit-title" data-action="close-devcredit-backdrop">
+    <div
+      class="devcredit-card relative w-full max-w-md bg-surface-slate border border-border-hairline p-6 sm:p-8 flex flex-col shadow-[0_0_60px_rgba(0,0,0,0.85)] transform scale-95 transition-all duration-300"
+      id="devcredit-card">
+      <div class="flex items-center justify-between pb-4 border-b border-border-hairline mb-6">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-primary-container rec-dot"></span>
+          <span class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest">// DEVELOPER PROFILE</span>
+        </div>
+        <button type="button" class="devcredit-close-btn text-text-muted hover:text-primary transition-colors p-1.5 cursor-pointer"
+          data-action="close-devcredit" aria-label="Close developer contact dialog">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="flex flex-col items-center text-center mb-6">
+        <div class="devcredit-avatar mb-4" aria-hidden="true">
+          <span class="devcredit-avatar-text" id="devcredit-initials">AS</span>
+        </div>
+        <h3 id="devcredit-title" class="font-headline-md text-xl sm:text-2xl uppercase tracking-tight text-on-surface font-semibold">
+          Aniruddha Sahu
+        </h3>
+        <p id="devcredit-role" class="font-label-mono-sm text-xs text-primary-container uppercase tracking-wider mt-1">
+          Full Stack Developer
+        </p>
+      </div>
+
+      <div class="space-y-3" id="devcredit-links-container">
+        <!-- Email Link -->
+        <a id="devcredit-link-email" href="mailto:aniruddhasahu2007@gmail.com" class="devcredit-link-item group" aria-label="Send email to Aniruddha Sahu">
+          <div class="devcredit-link-icon-wrap" aria-hidden="true">
+            <svg class="w-5 h-5 text-primary-container" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <div class="devcredit-link-content">
+            <span class="devcredit-link-label">Email</span>
+            <span class="devcredit-link-val" id="devcredit-val-email">aniruddhasahu2007@gmail.com</span>
+          </div>
+          <svg class="devcredit-link-arrow w-4 h-4 text-text-muted group-hover:text-primary-container" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+
+        <!-- LinkedIn Link -->
+        <a id="devcredit-link-linkedin" href="https://www.linkedin.com/in/aniruddha-sahu-976385375?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer" class="devcredit-link-item group" aria-label="Aniruddha Sahu LinkedIn profile (opens in new tab)">
+          <div class="devcredit-link-icon-wrap" aria-hidden="true">
+            <svg class="w-5 h-5 text-primary-container" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v7.6h2.8v-7.6h-2.8M7.86 6.38a1.62 1.62 0 1 0 0 3.24 1.62 1.62 0 0 0 0-3.24" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="devcredit-link-content">
+            <span class="devcredit-link-label">LinkedIn</span>
+            <span class="devcredit-link-val" id="devcredit-val-linkedin">Connect on LinkedIn</span>
+          </div>
+          <svg class="devcredit-link-arrow w-4 h-4 text-text-muted group-hover:text-primary-container" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+
+        <!-- GitHub Link -->
+        <a id="devcredit-link-github" href="https://github.com/aniruddhasahu2007" target="_blank" rel="noopener noreferrer" class="devcredit-link-item group" aria-label="Aniruddha Sahu GitHub profile (opens in new tab)">
+          <div class="devcredit-link-icon-wrap" aria-hidden="true">
+            <svg class="w-5 h-5 text-primary-container" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="devcredit-link-content">
+            <span class="devcredit-link-label">GitHub</span>
+            <span class="devcredit-link-val" id="devcredit-val-github">github.com/aniruddhasahu2007</span>
+          </div>
+          <svg class="devcredit-link-arrow w-4 h-4 text-text-muted group-hover:text-primary-container" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
   <!-- ==================== SITE FOOTER ==================== -->
   <footer class="site-footer" role="contentinfo">
     <div class="site-footer-inner">
@@ -196,11 +283,16 @@
         </div>
       </div>
 
-      <!-- BOTTOM BAR: Divider & Dynamic Copyright Year -->
+      <!-- BOTTOM BAR: Divider & Dynamic Copyright Year & Developer Credit -->
       <div class="site-footer-divider"></div>
-      <p class="site-footer-copyright">
-        &copy; <span id="footer-year">2026</span> The MediaMovers - NIST PR Cell. All Rights Reserved.
-      </p>
+      <div class="devcredit-footer-bottom">
+        <p class="site-footer-copyright">
+          &copy; <span id="footer-year">2026</span> The MediaMovers - NIST PR Cell. All Rights Reserved.
+        </p>
+        <p class="devcredit-line">
+          <span class="devcredit-prefix-desktop">Designed &amp; developed by</span><span class="devcredit-prefix-mobile">Developed by</span> <button type="button" class="devcredit-btn" data-action="open-dev-credit" aria-haspopup="dialog" aria-label="View developer contact details"><span class="devcredit-name">Aniruddha Sahu</span></button>
+        </p>
+      </div>
     </div>
   </footer>
   <script>

@@ -604,3 +604,205 @@
     .drawer-overlay {
       background-color: rgba(11, 18, 32, 0.5) !important;
     }
+
+    /* ================================================================
+     * DEVELOPER CREDIT & CONTACT POPUP STYLES (devcredit- prefix)
+     * ================================================================ */
+    .devcredit-btn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      font: inherit;
+      color: #FF5E1E;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      display: inline;
+      transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    }
+
+    .devcredit-btn:hover,
+    .devcredit-btn:focus-visible {
+      color: #FF7A42;
+      text-decoration-style: solid;
+      outline: none;
+    }
+
+    .devcredit-footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .devcredit-line {
+      font-family: 'Poppins', system-ui, sans-serif;
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.55);
+      margin: 0;
+    }
+
+    .devcredit-prefix-desktop {
+      display: inline;
+    }
+
+    .devcredit-prefix-mobile {
+      display: none;
+    }
+
+    @media (min-width: 1024px) {
+      .site-footer-copyright {
+        text-align: left;
+      }
+      .devcredit-line {
+        text-align: right;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      .devcredit-footer-bottom {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 6px;
+      }
+      .site-footer-copyright {
+        text-align: center;
+      }
+      .devcredit-line {
+        text-align: center;
+      }
+      .devcredit-prefix-desktop {
+        display: none;
+      }
+      .devcredit-prefix-mobile {
+        display: inline;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .devcredit-line {
+        font-size: 12.5px;
+      }
+    }
+
+    .devcredit-drawer-divider {
+      width: 100%;
+      height: 1px;
+      background-color: #232B3E;
+      margin: 14px 0 10px 0;
+    }
+
+    .devcredit-drawer-line {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      color: #7A7A85;
+      text-align: center;
+      margin: 0;
+      width: 100%;
+    }
+
+    #devcredit-modal {
+      background-color: rgba(11, 18, 32, 0.8) !important;
+    }
+
+    .devcredit-card {
+      box-sizing: border-box;
+    }
+
+    .devcredit-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 9999px;
+      background: rgba(255, 94, 30, 0.12);
+      border: 1px solid rgba(255, 94, 30, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px rgba(255, 94, 30, 0.2);
+    }
+
+    .devcredit-avatar-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 20px;
+      font-weight: 700;
+      color: #FF5E1E;
+      letter-spacing: 0.05em;
+    }
+
+    .devcredit-link-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+      border: 1px solid #232B3E;
+      background-color: #0B1220;
+      text-decoration: none;
+      color: #F0F0F5;
+      transition: all 0.2s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .devcredit-link-item:hover,
+    .devcredit-link-item:focus-visible {
+      border-color: #FF5E1E;
+      background-color: rgba(255, 94, 30, 0.06);
+      color: #FFFFFF;
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .devcredit-link-icon-wrap {
+      width: 36px;
+      height: 36px;
+      border-radius: 4px;
+      background: rgba(255, 94, 30, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .devcredit-link-content {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1 1 auto;
+      text-align: left;
+    }
+
+    .devcredit-link-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7A7A85;
+      line-height: 1.2;
+    }
+
+    .devcredit-link-val {
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-size: 13.5px;
+      color: #F0F0F5;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+
+    .devcredit-link-arrow {
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+
+    .devcredit-link-item:hover .devcredit-link-arrow {
+      transform: translate(2px, -2px);
+    }
