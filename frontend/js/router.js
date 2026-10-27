@@ -6,7 +6,7 @@
  * Depends on: reveal.js (window.resetRevealAnimations), drawer.js (window.isDrawerOpen, window.closeDrawer)
  */
 (function () {
-  var ROUTES = ['about', 'what-we-do', 'our-work', 'behind-the-scenes', 'stories', 'team', 'join-collective'];
+  var ROUTES = ['about', 'team', 'what-we-do', 'our-work', 'behind-the-scenes', 'join-collective'];
   var DEFAULT_ROUTE = 'about';
   var activeClasses = ['text-on-surface', 'border-b-2', 'border-primary-container'];
   var inactiveClasses = ['text-text-muted'];
@@ -25,6 +25,16 @@
       return 'team';
     }
 
+    // Redirect legacy #/stories bookmarks to #/behind-the-scenes
+    if (rawHash === 'stories') {
+      if (history.replaceState) {
+        history.replaceState(null, '', '#/behind-the-scenes');
+      } else {
+        location.hash = '#/behind-the-scenes';
+      }
+      return 'behind-the-scenes';
+    }
+
     return ROUTES.indexOf(rawHash) !== -1 ? rawHash : DEFAULT_ROUTE;
   }
 
@@ -35,6 +45,15 @@
         history.replaceState(null, '', '#/team');
       } else {
         location.hash = '#/team';
+      }
+    }
+
+    if (route === 'stories') {
+      route = 'behind-the-scenes';
+      if (history.replaceState) {
+        history.replaceState(null, '', '#/behind-the-scenes');
+      } else {
+        location.hash = '#/behind-the-scenes';
       }
     }
 

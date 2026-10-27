@@ -11,6 +11,22 @@
  */
 
 /**
+ * Site Social Media Configuration
+ * Central spot for all social URLs across footer, drawer, and headers.
+ * To update links, edit the URLs below:
+ * - instagram: Official Instagram profile
+ * - linkedin: Official LinkedIn company page
+ * - facebook: Official Facebook page (replace placeholder below)
+ * - youtube: Official YouTube channel (replace placeholder below)
+ */
+var SOCIAL_LINKS = {
+  instagram: "https://www.instagram.com/the.mediamovers",
+  linkedin: "https://www.linkedin.com/company/the-mediamovers/",
+  facebook: "https://www.facebook.com/share/1dSwG1qExq/",
+  youtube: "https://youtube.com/@themediamovers?si=DGe6j4XrNwGvfbUf"
+};
+
+/**
  * Developer Credit & Contact Configuration
  * All details live in this single config object for easy editing.
  * If a value is empty or "#", that contact link row is automatically hidden.
@@ -274,7 +290,30 @@ var DEVELOPER_CONFIG = {
     }
   }
 
+  function syncSocialLinks() {
+    var links = (typeof SOCIAL_LINKS !== 'undefined') ? SOCIAL_LINKS : (window.SOCIAL_LINKS || {});
+    Object.keys(links).forEach(function (platform) {
+      var rawUrl = links[platform];
+      var isValid = typeof rawUrl === 'string' && rawUrl.trim() !== '' && rawUrl.trim() !== '#';
+      var cleanUrl = isValid ? rawUrl.trim() : '';
+
+      document.querySelectorAll('a[data-social="' + platform + '"]').forEach(function (link) {
+        if (cleanUrl) {
+          link.href = cleanUrl;
+          link.setAttribute('target', '_blank');
+          link.setAttribute('rel', 'noopener noreferrer');
+          link.classList.remove('hidden');
+          link.style.display = '';
+        } else {
+          link.classList.add('hidden');
+          link.style.display = 'none';
+        }
+      });
+    });
+  }
+
   function initUI() {
+    syncSocialLinks();
     initDevCredit();
     initSpotlight();
     initTimecode();

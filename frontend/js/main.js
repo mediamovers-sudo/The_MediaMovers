@@ -12,7 +12,7 @@
  * Depends on: api.js, reveal.js, modals.js, drawer.js, ui.js, router.js
  */
 document.addEventListener('DOMContentLoaded', async function () {
-  var ROUTES = ['about', 'what-we-do', 'our-work', 'behind-the-scenes', 'stories', 'team', 'join-collective'];
+  var ROUTES = ['about', 'team', 'what-we-do', 'our-work', 'behind-the-scenes', 'join-collective'];
   var appEl = document.getElementById('app');
   var modalRoot = document.getElementById('modal-root');
 
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
       });
 
-    // 2. Fetch all route page partials and inject into <main id="app">
+    // 2. Fetch all route page partials and inject into <main id="app"> in exact sequential order
     var pagesPromises = ROUTES.map(function (route) {
       return fetch('/pages/' + route + '.html')
         .then(function (res) {
@@ -37,18 +37,23 @@ document.addEventListener('DOMContentLoaded', async function () {
           return res.text();
         })
         .then(function (html) {
-          var pageDiv = document.createElement('div');
-          pageDiv.setAttribute('data-page', route);
-          pageDiv.className = 'hidden';
-          pageDiv.innerHTML = html;
-          if (appEl) {
-            appEl.appendChild(pageDiv);
-          }
+          return { route: route, html: html };
         });
     });
 
-    // Wait for all partials to be loaded and attached to DOM
-    await Promise.all([modalsPromise, ...pagesPromises]);
+    // Wait for all partials to be loaded and attached to DOM in exact order
+    var results = await Promise.all([modalsPromise, ...pagesPromises]);
+    var pagesLoaded = results.slice(1);
+    pagesLoaded.forEach(function (p) {
+      if (!p) return;
+      var pageDiv = document.createElement('div');
+      pageDiv.setAttribute('data-page', p.route);
+      pageDiv.className = 'hidden';
+      pageDiv.innerHTML = p.html;
+      if (appEl) {
+        appEl.appendChild(pageDiv);
+      }
+    });
   } catch (err) {
     console.error('[MediaMovers] Error loading partials:', err);
   }

@@ -1,70 +1,144 @@
 <!--
   behind-the-scenes.html
-  Behind The Scenes page partial.
+  Behind The Scenes page partial (incorporating Live Wire & Field Archives).
   Injected into <main id="app"> as <div data-page="behind-the-scenes">
-  Depends on: main.js, router.js
+  Depends on: main.js, router.js, api.js, modals.js
 -->
-        <!-- ========================================================================= -->
-        <!-- 04 // BEHIND THE SCENES                                                    -->
-        <!-- ========================================================================= -->
-        <section class="w-full px-margin-mobile lg:px-margin py-24 border-b border-border-hairline bg-surface-pitch">
-          <div
-            class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-border-hairline gap-4 reveal-item">
-            <div>
-              <h2
-                class="font-headline-lg text-headline-lg-mobile lg:text-headline-lg uppercase tracking-tight text-on-surface">
-                BEHIND THE SCENES</h2>
-            </div>
-            <div class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest">[ ARCHIVE —
-              COMING SOON ]</div>
-          </div>
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            <div
-              class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-6 group hover:border-primary-container transition-colors duration-300 reveal-item">
-              <span
-                class="material-symbols-outlined text-[32px] text-text-muted group-hover:text-primary-container transition-colors mb-3">photo_camera</span>
-              <span class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest">[ BTS-001
-                ]</span>
-            </div>
-            <div
-              class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-6 group hover:border-primary-container transition-colors duration-300 reveal-item"
-              style="transition-delay: 80ms;">
-              <span
-                class="material-symbols-outlined text-[32px] text-text-muted group-hover:text-primary-container transition-colors mb-3">photo_camera</span>
-              <span class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest">[ BTS-002
-                ]</span>
-            </div>
-            <div
-              class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-6 group hover:border-primary-container transition-colors duration-300 reveal-item"
-              style="transition-delay: 160ms;">
-              <span
-                class="material-symbols-outlined text-[32px] text-text-muted group-hover:text-primary-container transition-colors mb-3">photo_camera</span>
-              <span class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest">[ BTS-003
-                ]</span>
-            </div>
-            <div
-              class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-6 group hover:border-primary-container transition-colors duration-300 reveal-item"
-              style="transition-delay: 240ms;">
-              <span
-                class="material-symbols-outlined text-[32px] text-text-muted group-hover:text-primary-container transition-colors mb-3">photo_camera</span>
-              <span class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest">[ BTS-004
-                ]</span>
-            </div>
-            <div
-              class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-6 group hover:border-primary-container transition-colors duration-300 reveal-item"
-              style="transition-delay: 320ms;">
-              <span
-                class="material-symbols-outlined text-[32px] text-text-muted group-hover:text-primary-container transition-colors mb-3">photo_camera</span>
-              <span class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest">[ BTS-005
-                ]</span>
-            </div>
-            <div
-              class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-6 group hover:border-primary-container transition-colors duration-300 reveal-item"
-              style="transition-delay: 400ms;">
-              <span
-                class="material-symbols-outlined text-[32px] text-text-muted group-hover:text-primary-container transition-colors mb-3">photo_camera</span>
-              <span class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest">[ BTS-006
-                ]</span>
-            </div>
-          </div>
-        </section>
+<!-- ========================================================================= -->
+<!-- 04 // BEHIND THE SCENES & LIVE WIRE                                       -->
+<!-- ========================================================================= -->
+<section class="w-full px-margin-mobile lg:px-margin py-24 border-b border-border-hairline bg-surface-pitch">
+  <div
+    class="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-border-hairline gap-4 reveal-item">
+    <div>
+      <h2
+        class="font-headline-lg text-headline-lg-mobile lg:text-headline-lg uppercase tracking-tight text-on-surface">
+        BEHIND THE SCENES</h2>
+      <p class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest mt-2">
+        // ON THE WIRE • LIVE DISPATCHES &amp; PRODUCTION VAULT
+      </p>
+    </div>
+    <a class="group inline-flex items-center gap-2 font-label-mono-sm text-label-mono-sm uppercase tracking-widest text-primary-container hover:text-on-surface transition-colors"
+      href="https://www.instagram.com/the.mediamovers" rel="noopener" target="_blank" data-social="instagram">
+      <span>@THE.MEDIAMOVERS ● INSTAGRAM</span>
+      <span
+        class="material-symbols-outlined text-[16px] transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform">arrow_outward</span>
+    </a>
+  </div>
+
+  <!-- On The Wire Feed Grid (Hydrated dynamically by /api/wire-photos via api.js) -->
+  <div id="wire-photos-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+    <!-- Item 01 -->
+    <div data-action="open-wire" data-wire-index="0"
+      class="relative group overflow-hidden border border-border-hairline aspect-square bg-surface-slate reveal-item cursor-pointer select-none">
+      <img alt="Camera prime lens detail"
+        class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700 ease-out"
+        data-alt="Close up cinema prime lens aperture markings on camera matte box in soft orange neon studio glow"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5mBJS8gm7NXtOCyyB-hjG7pHtKFbFtyBK_fWwTp0k1cJTp0G6SCWbKo5vZ0r23o5PkWF1huRBZfIfYb340nl4IhzLITIXGaVUFgd0oI9PA-SMdbYOEPG8yHw6W9PspSHP8DHNZTynFwHDudR0PrhwpI-0fzg1Tu_Hg_dyvO0QtzTSWjRVEi6rF_hZnCRh4wBSXo035f6pMjusA7muRQji66ZF-5E3ev5HY0qZBQX__oqg53a9mvJ5ZA">
+      <div
+        class="absolute inset-0 bg-surface-pitch/75 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4">
+        <span class="font-label-mono-sm text-label-mono-sm text-primary-container">[ REEL #104 ]</span>
+        <span class="font-label-mono-sm text-label-mono-sm text-on-surface uppercase tracking-wider">TESTING
+          ANAMORPHIC FLARES ON QUAD FOUNTAINS</span>
+      </div>
+    </div>
+    <!-- Item 02 -->
+    <div data-action="open-wire" data-wire-index="1"
+      class="relative group overflow-hidden border border-border-hairline aspect-square bg-surface-slate reveal-item cursor-pointer select-none"
+      style="transition-delay: 80ms;">
+      <img alt="Cameraman low angle shot"
+        class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700 ease-out"
+        data-alt="Cinematic photo of photographer crouching low on cobblestone street capturing golden hour campus silhouettes"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrSckkD0-KZm8TxAFkMA7lP_YRTuQr3TVkAsAyw_N89S-F9haafhdDDGQthXaeCcG6I2si3_KXjYTy39bXdmNFjKT2afR9sgB0pE5-cGOkjxlY--9R8PO-otrGd43m6zHE7E6euUIOth8HyfbC7YstlZ7tuokNqaW4N4qkgNsvrgPRHXTn6Pl-n0ADDJ4robuJJ3i_71Hh_JJQBkNIRD3nlOhmHe5nt7Zp_3ONXBjbvfcRSkbqGzZNUw">
+      <div
+        class="absolute inset-0 bg-surface-pitch/75 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4">
+        <span class="font-label-mono-sm text-label-mono-sm text-primary-container">[ REEL #105 ]</span>
+        <span class="font-label-mono-sm text-label-mono-sm text-on-surface uppercase tracking-wider">GOLDEN HOUR
+          GOLDEN JUBILEE SESSIONS</span>
+      </div>
+    </div>
+    <!-- Item 03 -->
+    <div data-action="open-wire" data-wire-index="2"
+      class="relative group overflow-hidden border border-border-hairline aspect-square bg-surface-slate reveal-item cursor-pointer select-none"
+      style="transition-delay: 160ms;">
+      <img alt="Audio desk mixing faders"
+        class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700 ease-out"
+        data-alt="Sound designer hands adjusting faders on a studio audio mixer console with green and yellow dB level meters glowing"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBje00nEw_y965Kb9PCTIK64oxEcg9hRsog7pbvMJp73vWxlqxurPlrWdP2se0uz5SnW2F_T4M4CSQ6EjRrRXQay44d-i_ok-zO4V2MD54S6u9ZT7EUG04_mdZlkQQEnnAzXOxgdctp2uVDfcJ6vVCoG3ws43UIbA9fxWJzlDVmdZpWd2LgTTXFLn1P1ivO5bXnFSdcsnlENG1VEXrhmNTLthgY33TXowM-ishSZpEEW_FzuhA81LtqvA">
+      <div
+        class="absolute inset-0 bg-surface-pitch/75 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4">
+        <span class="font-label-mono-sm text-label-mono-sm text-primary-container">[ REEL #106 ]</span>
+        <span class="font-label-mono-sm text-label-mono-sm text-on-surface uppercase tracking-wider">RE-RECORDING
+          CONVOCATION VOICEOVER STEMS</span>
+      </div>
+    </div>
+    <!-- Item 04 -->
+    <div data-action="open-wire" data-wire-index="3"
+      class="relative group overflow-hidden border border-border-hairline aspect-square bg-surface-slate reveal-item cursor-pointer select-none"
+      style="transition-delay: 240ms;">
+      <img alt="Production clapper slate"
+        class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700 ease-out"
+        data-alt="Minimalist dark film slate with chalk lettering reading scene 14 take 2 against moody atmospheric smoke"
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQsndK_lerGGNqmVdITV1WJTi8279ctRzXeR6eEalSO3ftbNzmj1qVNiAUIQzsJACYR3DYS26bOQw_WcBFXL5hQTwYmpF0Ep1SE0R9KzN4nk773ybOO9XlnITPjhGd4654BRu8GDbNcOq0Sv27kYe1p2tM9jQZUNy7Y4ezCWwtjQ1OYebLkRV0fdUOdecDiTxXvllMemdam3thsqyV_CNJNGAw8jFbSeFuCWiYfHCq4XByvK_ZYeZtWw">
+      <div
+        class="absolute inset-0 bg-surface-pitch/75 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4">
+        <span class="font-label-mono-sm text-label-mono-sm text-primary-container">[ REEL #107 ]</span>
+        <span class="font-label-mono-sm text-label-mono-sm text-on-surface uppercase tracking-wider">WRAP ON
+          SHORT
+          FILM 'LATENCY 2025'</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Field Archives / Additional Camera Previews -->
+  <div class="pt-8 border-t border-border-hairline mb-8">
+    <div class="flex items-center justify-between mb-8">
+      <span class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest">[ FIELD ARCHIVES &amp; CAMERA OBSERVATIONS ]</span>
+      <span class="font-label-mono-sm text-label-mono-sm text-primary-container uppercase tracking-widest">SERIES 01</span>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <div
+        class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-4 group hover:border-primary-container transition-colors duration-300 reveal-item">
+        <span
+          class="material-symbols-outlined text-[28px] text-text-muted group-hover:text-primary-container transition-colors mb-2">photo_camera</span>
+        <span class="font-label-mono-sm text-[11px] text-text-muted uppercase tracking-widest">[ BTS-001 ]</span>
+      </div>
+      <div
+        class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-4 group hover:border-primary-container transition-colors duration-300 reveal-item"
+        style="transition-delay: 80ms;">
+        <span
+          class="material-symbols-outlined text-[28px] text-text-muted group-hover:text-primary-container transition-colors mb-2">photo_camera</span>
+        <span class="font-label-mono-sm text-[11px] text-text-muted uppercase tracking-widest">[ BTS-002 ]</span>
+      </div>
+      <div
+        class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-4 group hover:border-primary-container transition-colors duration-300 reveal-item"
+        style="transition-delay: 160ms;">
+        <span
+          class="material-symbols-outlined text-[28px] text-text-muted group-hover:text-primary-container transition-colors mb-2">photo_camera</span>
+        <span class="font-label-mono-sm text-[11px] text-text-muted uppercase tracking-widest">[ BTS-003 ]</span>
+      </div>
+      <div
+        class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-4 group hover:border-primary-container transition-colors duration-300 reveal-item"
+        style="transition-delay: 240ms;">
+        <span
+          class="material-symbols-outlined text-[28px] text-text-muted group-hover:text-primary-container transition-colors mb-2">photo_camera</span>
+        <span class="font-label-mono-sm text-[11px] text-text-muted uppercase tracking-widest">[ BTS-004 ]</span>
+      </div>
+      <div
+        class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-4 group hover:border-primary-container transition-colors duration-300 reveal-item"
+        style="transition-delay: 320ms;">
+        <span
+          class="material-symbols-outlined text-[28px] text-text-muted group-hover:text-primary-container transition-colors mb-2">photo_camera</span>
+        <span class="font-label-mono-sm text-[11px] text-text-muted uppercase tracking-widest">[ BTS-005 ]</span>
+      </div>
+      <div
+        class="aspect-square border border-border-hairline bg-surface-slate/60 flex flex-col items-center justify-center p-4 group hover:border-primary-container transition-colors duration-300 reveal-item"
+        style="transition-delay: 400ms;">
+        <span
+          class="material-symbols-outlined text-[28px] text-text-muted group-hover:text-primary-container transition-colors mb-2">photo_camera</span>
+        <span class="font-label-mono-sm text-[11px] text-text-muted uppercase tracking-widest">[ BTS-006 ]</span>
+      </div>
+    </div>
+  </div>
+</section>
+
