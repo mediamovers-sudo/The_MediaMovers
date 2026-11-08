@@ -62,6 +62,9 @@ document.addEventListener('DOMContentLoaded', async function () {
   if (typeof window.renderMembers === 'function') {
     window.renderMembers();
   }
+  if (typeof window.renderAdvisors === 'function') {
+    window.renderAdvisors();
+  }
   if (typeof window.renderWirePhotos === 'function') {
     window.renderWirePhotos();
   }

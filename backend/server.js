@@ -12,6 +12,7 @@ const errorHandler = require('./middleware/errorHandler');
 // Import routes
 const authRoutes = require('./routes/authRoutes');
 const memberRoutes = require('./routes/memberRoutes');
+const advisorRoutes = require('./routes/advisorRoutes');
 const workItemRoutes = require('./routes/workItemRoutes');
 const wirePhotoRoutes = require('./routes/wirePhotoRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
@@ -193,6 +194,7 @@ app.get('/api/health', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/members', memberRoutes);
+app.use('/api/advisors', advisorRoutes);
 app.use('/api/work-items', workItemRoutes);
 app.use('/api/wire-photos', wirePhotoRoutes);
 app.use('/api/applications', applicationRoutes);

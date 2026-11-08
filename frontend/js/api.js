@@ -9,10 +9,13 @@
  * Depends on: reveal.js (window.observeNewRevealItems), modals.js (window.openMemberDossier, window.openWirePhoto)
  */
 (function () {
-  // Empty array: collective members are strictly driven by the database through the API
+  // Empty array: collective members & advisors are strictly driven by the database through the API
   window.collectiveMembers = [];
+  window.clubAdvisors = [];
   var membersLoading = false;
   var membersError = null;
+  var advisorsLoading = false;
+  var advisorsError = null;
 
   window.wirePhotos = [
     {
@@ -44,6 +47,89 @@
       desc: "Final slate mark and principal photography wrap on the student-written sci-fi thriller Latency."
     }
   ];
+
+  function renderAdvisors() {
+    var section = document.getElementById('advisors-section');
+    var grid = document.getElementById('advisors-grid');
+    var heading = document.getElementById('advisors-heading');
+    if (!section || !grid) return;
+
+    // Loading state
+    if (advisorsLoading) {
+      section.classList.remove('hidden');
+      if (heading) heading.textContent = 'CLUB ADVISOR';
+      grid.innerHTML =
+        '<div class="w-full py-12 flex items-center justify-center">' +
+        '<span class="font-label-mono-sm text-label-mono-sm uppercase text-text-muted tracking-widest px-4 py-2 border border-border-hairline bg-surface-slate/60 inline-flex items-center gap-2.5">' +
+        '<span class="w-1.5 h-1.5 bg-primary-container rounded-full rec-dot"></span>' +
+        'LOADING ADVISOR...' +
+        '</span>' +
+        '</div>';
+      return;
+    }
+
+    // Error or empty state: hide section completely
+    if (advisorsError || !Array.isArray(window.clubAdvisors) || window.clubAdvisors.length === 0) {
+      grid.innerHTML = '';
+      section.classList.add('hidden');
+      return;
+    }
+
+    // We have advisors -> show section
+    section.classList.remove('hidden');
+    var count = window.clubAdvisors.length;
+    if (heading) {
+      heading.textContent = count > 1 ? 'CLUB ADVISORS' : 'CLUB ADVISOR';
+    }
+
+    grid.innerHTML = '';
+    window.clubAdvisors.forEach(function (adv, idx) {
+      var photo = adv.photoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80';
+      var name = adv.name || '';
+      var desig = adv.designation || 'Club Advisor';
+      var dept = adv.department ? ('DEPT: ' + adv.department) : '';
+      var quoteText = adv.message ? (adv.message.startsWith('"') ? adv.message : '"' + adv.message + '"') : '';
+      var email = adv.email ? adv.email.trim() : '';
+      var link = adv.linkUrl ? adv.linkUrl.trim() : '';
+      var delayMs = idx * 80;
+
+      var card = document.createElement('div');
+      card.className = 'w-full max-w-sm border border-border-hairline bg-surface-slate/90 p-6 group flex flex-col justify-between hover:border-primary-container hover:-translate-y-1.5 transition-all duration-300 reveal-item select-none';
+      card.style.transitionDelay = delayMs + 'ms';
+
+      var socialIcons = '';
+      if (email) {
+        socialIcons += '<a href="mailto:' + email + '" class="text-text-muted hover:text-primary transition-colors p-1" title="' + email + '" aria-label="Email ' + name + '">' +
+          '<span class="material-symbols-outlined text-[18px] align-middle">mail</span>' +
+          '</a>';
+      }
+      if (link) {
+        socialIcons += '<a href="' + link + '" target="_blank" rel="noopener noreferrer" class="text-text-muted hover:text-primary transition-colors p-1" title="Website / Profile" aria-label="Website for ' + name + '">' +
+          '<span class="material-symbols-outlined text-[18px] align-middle">language</span>' +
+          '</a>';
+      }
+
+      card.innerHTML =
+        '<div>' +
+        '<div class="w-full aspect-[4/5] sm:h-80 overflow-hidden border border-border-hairline relative mb-5 bg-surface-pitch flex items-center justify-center">' +
+        '<img alt="' + name + '" class="w-full h-full object-cover sm:object-cover portrait:object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500 ease-out" src="' + photo + '">' +
+        '</div>' +
+        '<div class="font-label-mono-sm text-label-mono-sm text-primary-container uppercase tracking-widest">' + desig + '</div>' +
+        '<h3 class="font-headline-lg text-2xl uppercase text-on-surface group-hover:text-primary transition-colors mt-1">' + name + '</h3>' +
+        (quoteText ? '<p class="font-body-sm text-body-sm text-text-muted mt-3 italic leading-relaxed">' + quoteText + '</p>' : '') +
+        '</div>' +
+        '<div class="pt-4 mt-5 border-t border-border-hairline flex items-center justify-between font-label-mono-sm text-label-mono-sm text-text-muted">' +
+        '<span>' + dept + '</span>' +
+        '<div class="flex items-center gap-2">' + socialIcons + '</div>' +
+        '</div>';
+
+      grid.appendChild(card);
+    });
+
+    if (typeof window.observeNewRevealItems === 'function') {
+      window.observeNewRevealItems(grid);
+    }
+  }
 
   function renderMembers() {
     var grid = document.getElementById('collective-grid');
@@ -237,6 +323,35 @@
       renderMembers();
     }
 
+    // 1.5. Fetch Advisors
+    advisorsLoading = true;
+    advisorsError = null;
+    renderAdvisors();
+
+    try {
+      var advRes = await fetch('/api/advisors');
+      if (advRes.ok) {
+        var advData = await advRes.json();
+        advisorsLoading = false;
+        if (Array.isArray(advData)) {
+          window.clubAdvisors = advData;
+          renderAdvisors();
+          console.log('[MediaMovers] ✓ Loaded ' + advData.length + ' advisors from API');
+        } else {
+          window.clubAdvisors = [];
+          renderAdvisors();
+        }
+      } else {
+        throw new Error('API returned status ' + advRes.status);
+      }
+    } catch (e) {
+      advisorsLoading = false;
+      advisorsError = e;
+      window.clubAdvisors = [];
+      console.error('[MediaMovers] Failed to load advisors:', e);
+      renderAdvisors();
+    }
+
     // 2. Fetch Work Items
     try {
       var wRes = await fetch('/api/work-items');
@@ -333,6 +448,7 @@
   }
 
   window.renderMembers = renderMembers;
+  window.renderAdvisors = renderAdvisors;
   window.renderWirePhotos = renderWirePhotos;
   window.renderWorkItems = renderWorkItems;
   window.fetchDynamicPublicData = fetchDynamicPublicData;

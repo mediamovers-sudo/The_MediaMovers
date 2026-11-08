@@ -23,6 +23,22 @@ model Member {
   @@map("members")
 }
 
+model Advisor {
+  id          Int      @id @default(autoincrement())
+  name        String
+  designation String
+  department  String?
+  message     String?
+  photoUrl    String
+  email       String?
+  linkUrl     String?
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("advisors")
+}
+
 model WorkItem {
   id           Int      @id @default(autoincrement())
   title        String

@@ -108,6 +108,8 @@
       <button class="tab-btn active px-5 py-3.5 font-label-mono-sm text-[11px] tracking-[0.1em] uppercase text-text-muted hover:text-on-surface transition-colors border-b-2 border-transparent whitespace-nowrap"
         data-tab="members">Team</button>
       <button class="tab-btn px-5 py-3.5 font-label-mono-sm text-[11px] tracking-[0.1em] uppercase text-text-muted hover:text-on-surface transition-colors border-b-2 border-transparent whitespace-nowrap"
+        data-tab="advisors">Club Advisor</button>
+      <button class="tab-btn px-5 py-3.5 font-label-mono-sm text-[11px] tracking-[0.1em] uppercase text-text-muted hover:text-on-surface transition-colors border-b-2 border-transparent whitespace-nowrap"
         data-tab="what-we-do">What We Do</button>
       <button class="tab-btn px-5 py-3.5 font-label-mono-sm text-[11px] tracking-[0.1em] uppercase text-text-muted hover:text-on-surface transition-colors border-b-2 border-transparent whitespace-nowrap"
         data-tab="work-items">Our Work</button>
@@ -142,6 +144,32 @@
               </tr>
             </thead>
             <tbody id="members-table-body" class="text-sm"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Club Advisors Panel -->
+      <div id="panel-advisors" class="tab-panel hidden">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-headline-md text-2xl font-semibold uppercase">Club Advisors</h2>
+          <button data-action="open-add-advisor"
+            class="flex items-center gap-2 px-4 py-2 bg-primary-container text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-accent-hover transition-colors">
+            <span class="material-symbols-outlined text-[16px]">add</span> ADD ADVISOR
+          </button>
+        </div>
+        <div class="overflow-x-auto border border-border-hairline">
+          <table class="w-full text-left">
+            <thead class="bg-surface-container">
+              <tr>
+                <th class="p-3 text-text-muted border-b border-border-hairline">Photo</th>
+                <th class="p-3 text-text-muted border-b border-border-hairline">Name</th>
+                <th class="p-3 text-text-muted border-b border-border-hairline">Designation</th>
+                <th class="p-3 text-text-muted border-b border-border-hairline">Department</th>
+                <th class="p-3 text-text-muted border-b border-border-hairline">Order</th>
+                <th class="p-3 text-text-muted border-b border-border-hairline w-24">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="advisors-table-body" class="text-sm"></tbody>
           </table>
         </div>
       </div>
@@ -331,6 +359,7 @@
       document.getElementById('dashboard-view').classList.remove('hidden');
       document.getElementById('admin-email-display').textContent = email || '';
       loadMembers();
+      loadAdvisors();
       loadWorkItems();
       loadWirePhotos();
       loadApplications();
@@ -574,6 +603,139 @@
         }
       } catch (e) {
         console.error('[Delete Member Network Error]', e);
+        alert('Error: ' + e.message);
+      }
+    }
+
+    /* ========================================================
+     * CLUB ADVISORS CRUD
+     * ======================================================== */
+    var advisorsData = [];
+
+    async function loadAdvisors() {
+      try {
+        var res = await apiFetch('/api/advisors');
+        if (res.ok) {
+          advisorsData = await res.json();
+          renderAdvisorsTable();
+        } else {
+          var err = await res.json().catch(function() { return {}; });
+          console.error('[Load Advisors Failed]', res.status, err);
+        }
+      } catch (e) { console.error('Failed to load advisors', e); }
+    }
+
+    function renderAdvisorsTable() {
+      var tbody = document.getElementById('advisors-table-body');
+      if (!tbody) return;
+      if (!advisorsData.length) {
+        tbody.innerHTML = '<tr><td colspan="6" class="p-6 text-center text-text-muted">No club advisors found. Click "+ ADD ADVISOR" to add one.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = advisorsData.map(function(adv) {
+        var photo = adv.photoUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80';
+        return '<tr class="border-b border-border-hairline hover:bg-surface-container/50 transition-colors">' +
+          '<td class="p-3"><img src="' + photo + '" class="w-12 h-12 object-cover border border-border-hairline" alt=""></td>' +
+          '<td class="p-3 font-medium">' + escHtml(adv.name) + '</td>' +
+          '<td class="p-3 text-text-muted">' + escHtml(adv.designation) + '</td>' +
+          '<td class="p-3 text-text-muted">' + escHtml(adv.department || '—') + '</td>' +
+          '<td class="p-3 text-text-muted">' + (adv.sortOrder !== undefined ? adv.sortOrder : 0) + '</td>' +
+          '<td class="p-3"><div class="flex gap-2">' +
+            '<button data-action="edit-advisor" data-id="' + adv.id + '" class="p-1.5 border border-border-subtle text-text-muted hover:text-primary-container hover:border-primary-container/50 transition-colors" title="Edit Advisor"><span class="material-symbols-outlined text-[16px]">edit</span></button>' +
+            '<button data-action="delete-advisor" data-id="' + adv.id + '" class="p-1.5 border border-border-subtle text-text-muted hover:text-red-400 hover:border-red-400/50 transition-colors" title="Delete Advisor"><span class="material-symbols-outlined text-[16px]">remove</span></button>' +
+          '</div></td></tr>';
+      }).join('');
+    }
+
+    function openAdvisorModal(id) {
+      var adv = id ? advisorsData.find(function(x) { return x.id === id; }) : null;
+      var title = adv ? 'EDIT ADVISOR' : 'ADD ADVISOR';
+      var html = '<form id="advisor-form" class="space-y-4">' +
+        '<div id="modal-form-error" class="hidden p-3 bg-red-950/70 border border-red-500/60 text-red-300 text-xs font-mono rounded"></div>' +
+        '<input type="hidden" name="id" value="' + (adv ? adv.id : '') + '">' +
+        field('Name *', 'name', adv ? adv.name : '', 'text', true) +
+        field('Designation *', 'designation', adv ? adv.designation : '', 'text', true) +
+        field('Department', 'department', adv ? (adv.department || '') : '') +
+        field('Message / Quote', 'message', adv ? (adv.message || '') : '', 'textarea') +
+        field('Photo URL (Optional — default used if blank)', 'photoUrl', adv ? adv.photoUrl : '', 'text', false) +
+        '<div><label class="font-label-mono-sm text-[11px] tracking-[0.1em] text-text-muted uppercase block mb-1">Or Upload Image (Cloudinary)</label>' +
+          '<input type="file" id="advisor-photo-file" accept="image/*" class="w-full text-sm text-text-muted file:mr-3 file:px-3 file:py-1.5 file:border file:border-border-subtle file:bg-surface-container file:text-on-surface file:text-xs file:uppercase file:cursor-pointer"></div>' +
+        field('Email', 'email', adv ? (adv.email || '') : '', 'email') +
+        field('Website / Profile Link', 'linkUrl', adv ? (adv.linkUrl || '') : '', 'url') +
+        field('Sort Order', 'sortOrder', adv ? adv.sortOrder : 0, 'number') +
+        '<div class="pt-3 flex justify-end"><button id="advisor-save-btn" type="submit" class="px-5 py-2.5 bg-primary-container text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-accent-hover transition-colors"><span class="material-symbols-outlined text-[14px] align-middle mr-1">save</span>SAVE</button></div>' +
+        '</form>';
+      openAdminModal(title, html);
+
+      document.getElementById('advisor-form').addEventListener('submit', async function(ev) {
+        ev.preventDefault();
+        hideModalError();
+        var form = ev.target;
+        var btn = document.getElementById('advisor-save-btn');
+        btn.textContent = 'SAVING...';
+        btn.disabled = true;
+
+        var payload = formToObj(form);
+
+        // Upload image if file chosen
+        var fileInput = document.getElementById('advisor-photo-file');
+        if (fileInput && fileInput.files && fileInput.files[0]) {
+          try {
+            btn.textContent = 'UPLOADING IMAGE...';
+            var url = await uploadImage(fileInput);
+            if (url) payload.photoUrl = url;
+          } catch (e) {
+            showModalError('Image upload failed: ' + e.message);
+            btn.textContent = 'SAVE';
+            btn.disabled = false;
+            return;
+          }
+        }
+
+        var advisorId = form.elements['id'].value;
+        var url = advisorId ? '/api/advisors/' + advisorId : '/api/advisors';
+        var method = advisorId ? 'PUT' : 'POST';
+
+        btn.textContent = 'SAVING...';
+        try {
+          var res = await apiFetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          var data = await res.json().catch(function() { return {}; });
+
+          if (res.ok) {
+            closeAdminModal();
+            loadAdvisors();
+          } else {
+            console.error('[Save Advisor Error]', res.status, data);
+            showModalError(data.error || ('Failed to save advisor (Status ' + res.status + ')'));
+            btn.textContent = 'SAVE';
+            btn.disabled = false;
+          }
+        } catch (e) {
+          console.error('[Save Advisor Network Error]', e);
+          showModalError('Network error: ' + e.message);
+          btn.textContent = 'SAVE';
+          btn.disabled = false;
+        }
+      });
+    }
+
+    async function deleteAdvisor(id) {
+      if (!confirm('Delete this club advisor permanently?')) return;
+      try {
+        var res = await apiFetch('/api/advisors/' + id, { method: 'DELETE' });
+        var data = await res.json().catch(function() { return {}; });
+        if (res.ok) {
+          loadAdvisors();
+        } else {
+          console.error('[Delete Advisor Failed]', res.status, data);
+          alert(data.error || ('Failed to delete advisor (Status ' + res.status + ')'));
+        }
+      } catch (e) {
+        console.error('[Delete Advisor Network Error]', e);
         alert('Error: ' + e.message);
       }
     }
@@ -942,6 +1104,12 @@
         openMemberModal(id);
       } else if (action === 'delete-member') {
         deleteMember(id);
+      } else if (action === 'open-add-advisor') {
+        openAdvisorModal();
+      } else if (action === 'edit-advisor') {
+        openAdvisorModal(id);
+      } else if (action === 'delete-advisor') {
+        deleteAdvisor(id);
       } else if (action === 'open-add-work-item') {
         openWorkItemModal();
       } else if (action === 'edit-work-item') {
