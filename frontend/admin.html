@@ -44,7 +44,9 @@
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; }
-    .tab-btn.active { color: #FF5E1E; border-bottom: 2px solid #FF5E1E; }
+    .tab-btn.active { color: #FFFFFF; border-bottom: 2px solid #3B499B; }
+    button:not(.tab-btn) { background-color: #3B499B !important; color: #FFFFFF !important; }
+    button:not(.tab-btn):hover { background-color: #2F3A7C !important; color: #FFFFFF !important; }
     .modal-backdrop { background: rgba(11,18,32,0.92); backdrop-filter: blur(8px); }
     table th { text-transform: uppercase; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.1em; }
     ::-webkit-scrollbar { width: 6px; }
@@ -77,7 +79,7 @@
         </div>
         <div id="login-error" class="hidden text-xs font-mono text-red-400 py-1"></div>
         <button id="login-btn" type="submit"
-          class="w-full py-3 bg-primary-container text-white font-label-mono-lg text-[13px] tracking-[0.08em] uppercase font-medium hover:bg-accent-hover transition-all">
+          class="w-full py-3 bg-brand-blue text-white font-label-mono-lg text-[13px] tracking-[0.08em] uppercase font-medium hover:bg-[#2F3A7C] transition-all">
           AUTHENTICATE
         </button>
       </form>
@@ -97,7 +99,7 @@
       <div class="flex items-center gap-4">
         <span id="admin-email-display" class="font-label-mono-sm text-[11px] tracking-[0.1em] text-text-muted"></span>
         <button id="logout-btn"
-          class="flex items-center gap-1.5 px-3 py-1.5 border border-border-subtle text-text-muted hover:text-red-400 hover:border-red-400/50 transition-colors font-label-mono-sm text-[11px] tracking-[0.1em] uppercase">
+          class="flex items-center gap-1.5 px-3 py-1.5 bg-brand-blue text-white hover:bg-[#2F3A7C] transition-colors font-label-mono-sm text-[11px] tracking-[0.1em] uppercase">
           <span class="material-symbols-outlined text-[16px]">logout</span> LOGOUT
         </button>
       </div>
@@ -127,7 +129,7 @@
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-headline-md text-2xl font-semibold uppercase">Team Members</h2>
           <button data-action="open-add-member"
-            class="flex items-center gap-2 px-4 py-2 bg-brand-blue text-black font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-blue-700 transition-colors">
+            class="flex items-center gap-2 px-4 py-2 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors">
             <span class="material-symbols-outlined text-[16px]">add</span> ADD MEMBER
           </button>
         </div>
@@ -153,7 +155,7 @@
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-headline-md text-2xl font-semibold uppercase">Club Advisors</h2>
           <button data-action="open-add-advisor"
-            class="flex items-center gap-2 px-4 py-2 bg-primary-container text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-accent-hover transition-colors">
+            class="flex items-center gap-2 px-4 py-2 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors">
             <span class="material-symbols-outlined text-[16px]">add</span> ADD ADVISOR
           </button>
         </div>
@@ -190,7 +192,7 @@
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-headline-md text-2xl font-semibold uppercase">Our Work (Featured Archives)</h2>
           <button data-action="open-add-work-item"
-            class="flex items-center gap-2 px-4 py-2 bg-primary-container text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-accent-hover transition-colors">
+            class="flex items-center gap-2 px-4 py-2 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors">
             <span class="material-symbols-outlined text-[16px]">add</span> ADD WORK ITEM
           </button>
         </div>
@@ -215,7 +217,7 @@
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-headline-md text-2xl font-semibold uppercase">Behind The Scenes (Wire Photos &amp; Dispatches)</h2>
           <button data-action="open-add-wire-photo"
-            class="flex items-center gap-2 px-4 py-2 bg-primary-container text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-accent-hover transition-colors">
+            class="flex items-center gap-2 px-4 py-2 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors">
             <span class="material-symbols-outlined text-[16px]">add</span> ADD BTS PHOTO
           </button>
         </div>
@@ -240,7 +242,7 @@
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-headline-md text-2xl font-semibold uppercase">Crew Applications</h2>
           <button data-action="refresh-applications"
-            class="flex items-center gap-2 px-4 py-2 border border-border-subtle text-text-muted hover:text-on-surface font-label-mono-sm text-[11px] tracking-[0.1em] uppercase transition-colors">
+            class="flex items-center gap-2 px-4 py-2 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors">
             <span class="material-symbols-outlined text-[16px]">refresh</span> REFRESH
           </button>
         </div>
@@ -269,8 +271,8 @@
     <div class="relative w-full max-w-lg bg-surface-slate border border-border-hairline p-6 max-h-[90vh] overflow-y-auto">
       <div class="flex items-center justify-between pb-4 border-b border-border-hairline mb-5">
         <h3 id="modal-title" class="font-headline-md text-xl font-semibold uppercase">Modal</h3>
-        <button data-action="close-admin-modal" class="text-text-muted hover:text-on-surface transition-colors">
-          <span class="material-symbols-outlined text-[22px]">close</span>
+        <button data-action="close-admin-modal" class="p-1 bg-brand-blue text-white hover:bg-[#2F3A7C] transition-colors flex items-center justify-center" aria-label="Close modal">
+          <span class="material-symbols-outlined text-[20px]">close</span>
         </button>
       </div>
       <div id="modal-body"></div>
@@ -508,8 +510,8 @@
           '<td class="p-3 text-text-muted">' + escHtml(m.department) + '</td>' +
           '<td class="p-3 text-text-muted">' + (m.sortOrder !== undefined ? m.sortOrder : 0) + '</td>' +
           '<td class="p-3"><div class="flex gap-2">' +
-            '<button data-action="edit-member" data-id="' + m.id + '" class="p-1.5 border border-border-subtle text-text-muted hover:text-primary-container hover:border-primary-container/50 transition-colors"><span class="material-symbols-outlined text-[16px]">edit</span></button>' +
-            '<button data-action="delete-member" data-id="' + m.id + '" class="p-1.5 border border-border-subtle text-text-muted hover:text-red-400 hover:border-red-400/50 transition-colors"><span class="material-symbols-outlined text-[16px]">delete</span></button>' +
+            '<button data-action="edit-member" data-id="' + m.id + '" class="p-1.5 bg-brand-blue text-white hover:bg-[#2F3A7C] transition-colors" title="Edit Member"><span class="material-symbols-outlined text-[16px]">edit</span></button>' +
+            '<button data-action="delete-member" data-id="' + m.id + '" class="p-1.5 bg-brand-blue text-white hover:bg-red-600 transition-colors" title="Delete Member"><span class="material-symbols-outlined text-[16px]">delete</span></button>' +
           '</div></td></tr>';
       }).join('');
     }
@@ -527,10 +529,10 @@
         field('Bio', 'bio', m ? (m.bio || '') : '', 'textarea') +
         field('Photo URL (Optional — default used if blank)', 'photoUrl', m ? m.photoUrl : '', 'text', false) +
         '<div><label class="font-label-mono-sm text-[11px] tracking-[0.1em] text-text-muted uppercase block mb-1">Or Upload Image (Cloudinary)</label>' +
-          '<input type="file" id="member-photo-file" accept="image/*" class="w-full text-sm text-text-muted file:mr-3 file:px-3 file:py-1.5 file:border file:border-border-subtle file:bg-surface-container file:text-on-surface file:text-xs file:uppercase file:cursor-pointer"></div>' +
+          '<input type="file" id="member-photo-file" accept="image/*" class="w-full text-sm text-text-muted file:mr-3 file:px-3 file:py-1.5 file:border-none file:bg-brand-blue file:text-white hover:file:bg-[#2F3A7C] file:text-xs file:uppercase file:cursor-pointer transition-colors"></div>' +
         field('Instagram Handle', 'instagramHandle', m ? (m.instagramHandle || '') : '') +
         field('Sort Order', 'sortOrder', m ? m.sortOrder : 0, 'number') +
-        '<div class="pt-3 flex justify-end"><button id="member-save-btn" type="submit" class="px-5 py-2.5 bg-primary-container text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-accent-hover transition-colors"><span class="material-symbols-outlined text-[14px] align-middle mr-1">save</span>SAVE</button></div>' +
+        '<div class="pt-3 flex justify-end"><button id="member-save-btn" type="submit" class="px-5 py-2.5 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors"><span class="material-symbols-outlined text-[14px] align-middle mr-1">save</span>SAVE</button></div>' +
         '</form>';
       openAdminModal(title, html);
 
@@ -641,8 +643,8 @@
           '<td class="p-3 text-text-muted">' + escHtml(adv.department || '—') + '</td>' +
           '<td class="p-3 text-text-muted">' + (adv.sortOrder !== undefined ? adv.sortOrder : 0) + '</td>' +
           '<td class="p-3"><div class="flex gap-2">' +
-            '<button data-action="edit-advisor" data-id="' + adv.id + '" class="p-1.5 border border-border-subtle text-text-muted hover:text-primary-container hover:border-primary-container/50 transition-colors" title="Edit Advisor"><span class="material-symbols-outlined text-[16px]">edit</span></button>' +
-            '<button data-action="delete-advisor" data-id="' + adv.id + '" class="p-1.5 border border-border-subtle text-text-muted hover:text-red-400 hover:border-red-400/50 transition-colors" title="Delete Advisor"><span class="material-symbols-outlined text-[16px]">remove</span></button>' +
+            '<button data-action="edit-advisor" data-id="' + adv.id + '" class="p-1.5 bg-brand-blue text-white hover:bg-[#2F3A7C] transition-colors" title="Edit Advisor"><span class="material-symbols-outlined text-[16px]">edit</span></button>' +
+            '<button data-action="delete-advisor" data-id="' + adv.id + '" class="p-1.5 bg-brand-blue text-white hover:bg-red-600 transition-colors" title="Delete Advisor"><span class="material-symbols-outlined text-[16px]">remove</span></button>' +
           '</div></td></tr>';
       }).join('');
     }
@@ -659,11 +661,11 @@
         field('Message / Quote', 'message', adv ? (adv.message || '') : '', 'textarea') +
         field('Photo URL (Optional — default used if blank)', 'photoUrl', adv ? adv.photoUrl : '', 'text', false) +
         '<div><label class="font-label-mono-sm text-[11px] tracking-[0.1em] text-text-muted uppercase block mb-1">Or Upload Image (Cloudinary)</label>' +
-          '<input type="file" id="advisor-photo-file" accept="image/*" class="w-full text-sm text-text-muted file:mr-3 file:px-3 file:py-1.5 file:border file:border-border-subtle file:bg-surface-container file:text-on-surface file:text-xs file:uppercase file:cursor-pointer"></div>' +
+          '<input type="file" id="advisor-photo-file" accept="image/*" class="w-full text-sm text-text-muted file:mr-3 file:px-3 file:py-1.5 file:border-none file:bg-brand-blue file:text-white hover:file:bg-[#2F3A7C] file:text-xs file:uppercase file:cursor-pointer transition-colors"></div>' +
         field('Email', 'email', adv ? (adv.email || '') : '', 'email') +
         field('Website / Profile Link', 'linkUrl', adv ? (adv.linkUrl || '') : '', 'url') +
         field('Sort Order', 'sortOrder', adv ? adv.sortOrder : 0, 'number') +
-        '<div class="pt-3 flex justify-end"><button id="advisor-save-btn" type="submit" class="px-5 py-2.5 bg-primary-container text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-accent-hover transition-colors"><span class="material-symbols-outlined text-[14px] align-middle mr-1">save</span>SAVE</button></div>' +
+        '<div class="pt-3 flex justify-end"><button id="advisor-save-btn" type="submit" class="px-5 py-2.5 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors"><span class="material-symbols-outlined text-[14px] align-middle mr-1">save</span>SAVE</button></div>' +
         '</form>';
       openAdminModal(title, html);
 
@@ -772,8 +774,8 @@
           '<td class="p-3 text-text-muted">' + escHtml(w.category) + '</td>' +
           '<td class="p-3 text-text-muted">' + (w.sortOrder !== undefined ? w.sortOrder : 0) + '</td>' +
           '<td class="p-3"><div class="flex gap-2">' +
-            '<button data-action="edit-work-item" data-id="' + w.id + '" class="p-1.5 border border-border-subtle text-text-muted hover:text-primary-container hover:border-primary-container/50 transition-colors"><span class="material-symbols-outlined text-[16px]">edit</span></button>' +
-            '<button data-action="delete-work-item" data-id="' + w.id + '" class="p-1.5 border border-border-subtle text-text-muted hover:text-red-400 hover:border-red-400/50 transition-colors"><span class="material-symbols-outlined text-[16px]">delete</span></button>' +
+            '<button data-action="edit-work-item" data-id="' + w.id + '" class="p-1.5 bg-brand-blue text-white hover:bg-[#2F3A7C] transition-colors" title="Edit Work Item"><span class="material-symbols-outlined text-[16px]">edit</span></button>' +
+            '<button data-action="delete-work-item" data-id="' + w.id + '" class="p-1.5 bg-brand-blue text-white hover:bg-red-600 transition-colors" title="Delete Work Item"><span class="material-symbols-outlined text-[16px]">delete</span></button>' +
           '</div></td></tr>';
       }).join('');
     }
@@ -787,12 +789,12 @@
         field('Title *', 'title', w ? w.title : '', 'text', true) +
         field('Thumbnail URL (Optional — default used if blank)', 'thumbnailUrl', w ? w.thumbnailUrl : '', 'text', false) +
         '<div><label class="font-label-mono-sm text-[11px] tracking-[0.1em] text-text-muted uppercase block mb-1">Or Upload Thumbnail (Cloudinary)</label>' +
-          '<input type="file" id="wi-thumb-file" accept="image/*" class="w-full text-sm text-text-muted file:mr-3 file:px-3 file:py-1.5 file:border file:border-border-subtle file:bg-surface-container file:text-on-surface file:text-xs file:uppercase file:cursor-pointer"></div>' +
+          '<input type="file" id="wi-thumb-file" accept="image/*" class="w-full text-sm text-text-muted file:mr-3 file:px-3 file:py-1.5 file:border-none file:bg-brand-blue file:text-white hover:file:bg-[#2F3A7C] file:text-xs file:uppercase file:cursor-pointer transition-colors"></div>' +
         field('Category *', 'category', w ? w.category : '', 'text', true) +
         field('Video URL', 'videoUrl', w ? (w.videoUrl || '') : '', 'url') +
         field('Description', 'description', w ? (w.description || '') : '', 'textarea') +
         field('Sort Order', 'sortOrder', w ? w.sortOrder : 0, 'number') +
-        '<div class="pt-3 flex justify-end"><button id="wi-save-btn" type="submit" class="px-5 py-2.5 bg-primary-container text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-accent-hover transition-colors"><span class="material-symbols-outlined text-[14px] align-middle mr-1">save</span>SAVE</button></div>' +
+        '<div class="pt-3 flex justify-end"><button id="wi-save-btn" type="submit" class="px-5 py-2.5 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors"><span class="material-symbols-outlined text-[14px] align-middle mr-1">save</span>SAVE</button></div>' +
         '</form>';
       openAdminModal(title, html);
 
@@ -899,8 +901,8 @@
           '<td class="p-3 text-text-muted">' + escHtml(p.reelTag || '-') + '</td>' +
           '<td class="p-3 text-text-muted">' + (p.sortOrder !== undefined ? p.sortOrder : 0) + '</td>' +
           '<td class="p-3"><div class="flex gap-2">' +
-            '<button data-action="edit-wire-photo" data-id="' + p.id + '" class="p-1.5 border border-border-subtle text-text-muted hover:text-primary-container hover:border-primary-container/50 transition-colors"><span class="material-symbols-outlined text-[16px]">edit</span></button>' +
-            '<button data-action="delete-wire-photo" data-id="' + p.id + '" class="p-1.5 border border-border-subtle text-text-muted hover:text-red-400 hover:border-red-400/50 transition-colors"><span class="material-symbols-outlined text-[16px]">delete</span></button>' +
+            '<button data-action="edit-wire-photo" data-id="' + p.id + '" class="p-1.5 bg-brand-blue text-white hover:bg-[#2F3A7C] transition-colors" title="Edit Wire Photo"><span class="material-symbols-outlined text-[16px]">edit</span></button>' +
+            '<button data-action="delete-wire-photo" data-id="' + p.id + '" class="p-1.5 bg-brand-blue text-white hover:bg-red-600 transition-colors" title="Delete Wire Photo"><span class="material-symbols-outlined text-[16px]">delete</span></button>' +
           '</div></td></tr>';
       }).join('');
     }
@@ -914,11 +916,11 @@
         field('Title *', 'title', p ? p.title : '', 'text', true) +
         field('Image URL (Optional — default used if blank)', 'imageUrl', p ? p.imageUrl : '', 'text', false) +
         '<div><label class="font-label-mono-sm text-[11px] tracking-[0.1em] text-text-muted uppercase block mb-1">Or Upload Image (Cloudinary)</label>' +
-          '<input type="file" id="wp-img-file" accept="image/*" class="w-full text-sm text-text-muted file:mr-3 file:px-3 file:py-1.5 file:border file:border-border-subtle file:bg-surface-container file:text-on-surface file:text-xs file:uppercase file:cursor-pointer"></div>' +
+          '<input type="file" id="wp-img-file" accept="image/*" class="w-full text-sm text-text-muted file:mr-3 file:px-3 file:py-1.5 file:border-none file:bg-brand-blue file:text-white hover:file:bg-[#2F3A7C] file:text-xs file:uppercase file:cursor-pointer transition-colors"></div>' +
         field('Description / Caption', 'description', p ? (p.description || '') : '', 'textarea') +
         field('Reel Tag (e.g. [ REEL #108 ])', 'reelTag', p ? (p.reelTag || '') : '') +
         field('Sort Order', 'sortOrder', p ? p.sortOrder : 0, 'number') +
-        '<div class="pt-3 flex justify-end"><button id="wp-save-btn" type="submit" class="px-5 py-2.5 bg-primary-container text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-accent-hover transition-colors"><span class="material-symbols-outlined text-[14px] align-middle mr-1">save</span>SAVE</button></div>' +
+        '<div class="pt-3 flex justify-end"><button id="wp-save-btn" type="submit" class="px-5 py-2.5 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors"><span class="material-symbols-outlined text-[14px] align-middle mr-1">save</span>SAVE</button></div>' +
         '</form>';
       openAdminModal(title, html);
 
