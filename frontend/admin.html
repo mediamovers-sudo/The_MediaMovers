@@ -11,7 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add,arrow_outward,close,delete,edit,image,logout,photo_camera,refresh,save,visibility&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwindcss.config = {
+    window.tailwind = window.tailwind || {};
+    tailwind.config = {
       theme: {
         extend: {
           colors: {
@@ -79,8 +80,9 @@
         </div>
         <div id="login-error" class="hidden text-xs font-mono text-red-400 py-1"></div>
         <button id="login-btn" type="submit"
-          class="w-full py-3 bg-brand-blue text-white font-label-mono-lg text-[13px] tracking-[0.08em] uppercase font-medium hover:bg-[#2F3A7C] transition-all">
-          AUTHENTICATE
+          class="w-full py-3 bg-[#3B499B] text-white font-label-mono-lg text-[13px] tracking-[0.08em] uppercase font-medium hover:bg-[#2F3A7C] transition-all"
+          style="background-color: #3B499B !important; color: #FFFFFF !important;">
+          ENTER
         </button>
       </form>
     </div>
@@ -112,8 +114,6 @@
       <button class="tab-btn px-5 py-3.5 font-label-mono-sm text-[11px] tracking-[0.1em] uppercase text-text-muted hover:text-on-surface transition-colors border-b-2 border-transparent whitespace-nowrap"
         data-tab="advisors">Club Advisor</button>
       <button class="tab-btn px-5 py-3.5 font-label-mono-sm text-[11px] tracking-[0.1em] uppercase text-text-muted hover:text-on-surface transition-colors border-b-2 border-transparent whitespace-nowrap"
-        data-tab="what-we-do">What We Do</button>
-      <button class="tab-btn px-5 py-3.5 font-label-mono-sm text-[11px] tracking-[0.1em] uppercase text-text-muted hover:text-on-surface transition-colors border-b-2 border-transparent whitespace-nowrap"
         data-tab="work-items">Our Work</button>
       <button class="tab-btn px-5 py-3.5 font-label-mono-sm text-[11px] tracking-[0.1em] uppercase text-text-muted hover:text-on-surface transition-colors border-b-2 border-transparent whitespace-nowrap"
         data-tab="wire-photos">Behind The Scenes</button>
@@ -129,8 +129,9 @@
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-headline-md text-2xl font-semibold uppercase">Team Members</h2>
           <button data-action="open-add-member"
-            class="flex items-center gap-2 px-4 py-2 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors">
-            <span class="material-symbols-outlined text-[16px]">add</span> ADD MEMBER
+            class="flex items-center gap-2 px-4 py-2 bg-[#3B499B] text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors"
+            style="background-color: #3B499B !important; color: #FFFFFF !important;">
+            <span class="material-symbols-outlined text-[16px]" style="color: #FFFFFF !important;">add</span> ADD MEMBER
           </button>
         </div>
         <div class="overflow-x-auto border border-border-hairline">
@@ -155,8 +156,9 @@
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-headline-md text-2xl font-semibold uppercase">Club Advisors</h2>
           <button data-action="open-add-advisor"
-            class="flex items-center gap-2 px-4 py-2 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors">
-            <span class="material-symbols-outlined text-[16px]">add</span> ADD ADVISOR
+            class="flex items-center gap-2 px-4 py-2 bg-[#3B499B] text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors"
+            style="background-color: #3B499B !important; color: #FFFFFF !important;">
+            <span class="material-symbols-outlined text-[16px]" style="color: #FFFFFF !important;">add</span> ADD ADVISOR
           </button>
         </div>
         <div class="overflow-x-auto border border-border-hairline">
@@ -176,24 +178,15 @@
         </div>
       </div>
 
-      <!-- What We Do Panel -->
-      <div id="panel-what-we-do" class="tab-panel hidden">
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="font-headline-md text-2xl font-semibold uppercase">What We Do (Creative Disciplines)</h2>
-        </div>
-        <div class="p-6 border border-border-hairline bg-surface-slate/40 text-text-muted text-sm space-y-3">
-          <p class="font-body-md text-on-surface">The MediaMovers core disciplines (Photography, Filmmaking, Sound &amp; VFX) are curated as responsive layout components in <code class="text-primary-container font-mono">frontend/pages/what-we-do.html</code>.</p>
-          <p class="text-xs text-text-muted">Edit the template file to update service descriptions, feature lists, and department headers.</p>
-        </div>
-      </div>
 
       <!-- Work Items Panel -->
       <div id="panel-work-items" class="tab-panel hidden">
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-headline-md text-2xl font-semibold uppercase">Our Work (Featured Archives)</h2>
           <button data-action="open-add-work-item"
-            class="flex items-center gap-2 px-4 py-2 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors">
-            <span class="material-symbols-outlined text-[16px]">add</span> ADD WORK ITEM
+            class="flex items-center gap-2 px-4 py-2 bg-[#3B499B] text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors"
+            style="background-color: #3B499B !important; color: #FFFFFF !important;">
+            <span class="material-symbols-outlined text-[16px]" style="color: #FFFFFF !important;">add</span> ADD WORK ITEM
           </button>
         </div>
         <div class="overflow-x-auto border border-border-hairline">
@@ -217,8 +210,9 @@
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-headline-md text-2xl font-semibold uppercase">Behind The Scenes (Wire Photos &amp; Dispatches)</h2>
           <button data-action="open-add-wire-photo"
-            class="flex items-center gap-2 px-4 py-2 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors">
-            <span class="material-symbols-outlined text-[16px]">add</span> ADD BTS PHOTO
+            class="flex items-center gap-2 px-4 py-2 bg-[#3B499B] text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors"
+            style="background-color: #3B499B !important; color: #FFFFFF !important;">
+            <span class="material-symbols-outlined text-[16px]" style="color: #FFFFFF !important;">add</span> ADD BTS PHOTO
           </button>
         </div>
         <div class="overflow-x-auto border border-border-hairline">
@@ -242,8 +236,9 @@
         <div class="flex items-center justify-between mb-6">
           <h2 class="font-headline-md text-2xl font-semibold uppercase">Crew Applications</h2>
           <button data-action="refresh-applications"
-            class="flex items-center gap-2 px-4 py-2 bg-brand-blue text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors">
-            <span class="material-symbols-outlined text-[16px]">refresh</span> REFRESH
+            class="flex items-center gap-2 px-4 py-2 bg-[#3B499B] text-white font-label-mono-sm text-[11px] tracking-[0.1em] uppercase hover:bg-[#2F3A7C] transition-colors"
+            style="background-color: #3B499B !important; color: #FFFFFF !important;">
+            <span class="material-symbols-outlined text-[16px]" style="color: #FFFFFF !important;">refresh</span> REFRESH
           </button>
         </div>
         <div class="overflow-x-auto border border-border-hairline">
@@ -372,7 +367,7 @@
       var errEl = document.getElementById('login-error');
       errEl.classList.add('hidden');
       var btn = document.getElementById('login-btn');
-      btn.textContent = 'AUTHENTICATING...';
+      btn.textContent = 'ENTERING...';
       btn.disabled = true;
 
       try {
@@ -403,7 +398,7 @@
         }
         errEl.classList.remove('hidden');
       }
-      btn.textContent = 'AUTHENTICATE';
+      btn.textContent = 'ENTER';
       btn.disabled = false;
     });
 
