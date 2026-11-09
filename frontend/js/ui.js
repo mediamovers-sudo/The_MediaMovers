@@ -11,6 +11,16 @@
  */
 
 /**
+ * =========================================================================
+ * JOIN COLLECTIVE / CREW CALLBOARD APPLICATIONS SWITCH
+ * Set JOIN_OPEN = false to temporarily disable applications across the site.
+ * Set JOIN_OPEN = true to re-enable applications, buttons, and forms.
+ * =========================================================================
+ */
+var JOIN_OPEN = false;
+window.JOIN_OPEN = JOIN_OPEN;
+
+/**
  * Site Social Media Configuration
  * Central spot for all social URLs across footer, drawer, and headers.
  * To update links, edit the URLs below:
@@ -312,9 +322,56 @@ var DEVELOPER_CONFIG = {
     });
   }
 
+  var originalJoinHtml = null;
+
+  function syncJoinCollectiveStatus() {
+    var isOpen = (typeof JOIN_OPEN !== 'undefined') ? JOIN_OPEN : (window.JOIN_OPEN || false);
+    var joinPage = document.querySelector('[data-page="join-collective"]');
+
+    if (!isOpen) {
+      document.querySelectorAll('a[data-path="join-collective"]').forEach(function (el) {
+        el.classList.add('hidden');
+        el.style.setProperty('display', 'none', 'important');
+      });
+
+      if (joinPage) {
+        if (!originalJoinHtml) {
+          originalJoinHtml = joinPage.innerHTML;
+        }
+        joinPage.innerHTML =
+          '<section class="relative w-full px-margin-mobile lg:px-margin py-32 bg-surface-pitch min-h-[65vh] flex items-center justify-center" id="join">' +
+          '  <div class="relative z-10 max-w-2xl mx-auto text-center flex flex-col items-center reveal-item">' +
+          '    <div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-slate border border-border-hairline font-label-mono-sm text-label-mono-sm uppercase text-primary-container mb-6">' +
+          '      <span class="w-1.5 h-1.5 bg-primary-container rounded-full rec-dot"></span>' +
+          '      CREW CALLBOARD // APPLICATIONS CLOSED' +
+          '    </div>' +
+          '    <h2 class="font-headline-xl text-headline-xl-mobile sm:text-headline-xl lg:text-display-hero uppercase tracking-tighter text-on-surface leading-none">' +
+          '      APPLICATIONS ARE CURRENTLY CLOSED' +
+          '    </h2>' +
+          '    <p class="mt-6 font-body-lg text-body-lg text-text-muted max-w-xl leading-relaxed">' +
+          '      Applications are currently closed. Please check back soon.' +
+          '    </p>' +
+          '    <a href="#/about" data-path="about" class="mt-10 px-8 py-4 bg-primary-container text-on-surface font-label-mono-lg text-label-mono-lg uppercase font-medium tracking-wider hover:bg-accent-hover hover:shadow-[0_0_24px_rgba(255,94,30,0.4)] transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 inline-flex items-center gap-2 cursor-pointer">' +
+          '      BACK TO ABOUT' +
+          '    </a>' +
+          '  </div>' +
+          '</section>';
+      }
+    } else {
+      document.querySelectorAll('a[data-path="join-collective"]').forEach(function (el) {
+        el.classList.remove('hidden');
+        el.style.removeProperty('display');
+      });
+      if (joinPage && originalJoinHtml) {
+        joinPage.innerHTML = originalJoinHtml;
+      }
+    }
+  }
+
   function initUI() {
     syncSocialLinks();
     initDevCredit();
+    syncJoinCollectiveStatus();
     initSpotlight();
     initTimecode();
     initFooterClock();
@@ -322,5 +379,6 @@ var DEVELOPER_CONFIG = {
 
   window.openDevCreditModal = openDevCreditModal;
   window.closeDevCreditModal = closeDevCreditModal;
+  window.syncJoinCollectiveStatus = syncJoinCollectiveStatus;
   window.initUI = initUI;
 })();

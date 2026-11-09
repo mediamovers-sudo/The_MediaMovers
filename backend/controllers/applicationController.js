@@ -1,8 +1,15 @@
 const prisma = require('../models/prisma');
+const { JOIN_OPEN } = require('../config/env');
 
 // Public: POST /api/applications
 const submitApplication = async (req, res, next) => {
   try {
+    if (!JOIN_OPEN) {
+      return res.status(403).json({
+        error: 'Applications are closed'
+      });
+    }
+
     const { name, email, department, portfolioLink, message } = req.body;
 
     if (!name || !email || !department) {

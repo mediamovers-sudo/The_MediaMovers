@@ -207,12 +207,47 @@
   /* ========================================================
    * 4. CREW APPLICATION & STORY PITCH MODALS
    * ======================================================== */
+  var originalApplyModalCardHtml = null;
+  var originalPitchModalCardHtml = null;
+
   window.openApplyModal = function () {
     var modal = document.getElementById('apply-modal');
-    if (modal) {
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
+    if (!modal) return;
+    var isOpen = (typeof JOIN_OPEN !== 'undefined') ? JOIN_OPEN : (window.JOIN_OPEN !== undefined ? window.JOIN_OPEN : true);
+    var card = modal.querySelector('.relative.w-full.max-w-xl');
+
+    if (!isOpen) {
+      if (card) {
+        if (!originalApplyModalCardHtml) {
+          originalApplyModalCardHtml = card.innerHTML;
+        }
+        card.innerHTML =
+          '<div class="flex items-center justify-between pb-4 border-b border-border-hairline mb-6">' +
+          '  <div>' +
+          '    <span class="font-label-mono-sm text-label-mono-sm text-primary uppercase">// CALLBOARD STATUS</span>' +
+          '    <h3 class="font-headline-md text-headline-md uppercase text-on-surface">APPLICATIONS CLOSED</h3>' +
+          '  </div>' +
+          '  <button class="text-text-muted hover:text-on-surface transition-colors cursor-pointer" data-action="close-apply" aria-label="Close Application">' +
+          '    <span class="material-symbols-outlined text-[24px]">close</span>' +
+          '  </button>' +
+          '</div>' +
+          '<div class="py-6 text-center flex flex-col items-center">' +
+          '  <p class="font-body-lg text-body-lg text-text-muted max-w-md leading-relaxed mb-8">' +
+          '    Applications are currently closed. Please check back soon.' +
+          '  </p>' +
+          '  <button type="button" data-action="close-apply" class="px-8 py-3 bg-primary-container text-on-surface font-label-mono-lg uppercase font-medium hover:bg-accent-hover transition-all cursor-pointer">' +
+          '    CLOSE' +
+          '  </button>' +
+          '</div>';
+      }
+    } else {
+      if (card && originalApplyModalCardHtml) {
+        card.innerHTML = originalApplyModalCardHtml;
+      }
     }
+
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
   };
 
   window.closeApplyModal = function () {
@@ -225,10 +260,42 @@
 
   window.openPitchModal = function () {
     var modal = document.getElementById('pitch-modal');
-    if (modal) {
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
+    if (!modal) return;
+    var isOpen = (typeof JOIN_OPEN !== 'undefined') ? JOIN_OPEN : (window.JOIN_OPEN !== undefined ? window.JOIN_OPEN : true);
+    var card = modal.querySelector('.relative.w-full.max-w-xl');
+
+    if (!isOpen) {
+      if (card) {
+        if (!originalPitchModalCardHtml) {
+          originalPitchModalCardHtml = card.innerHTML;
+        }
+        card.innerHTML =
+          '<div class="flex items-center justify-between pb-4 border-b border-border-hairline mb-6">' +
+          '  <div>' +
+          '    <span class="font-label-mono-sm text-label-mono-sm text-primary uppercase">// EDITORIAL STATUS</span>' +
+          '    <h3 class="font-headline-md text-headline-md uppercase text-on-surface">SUBMISSIONS CLOSED</h3>' +
+          '  </div>' +
+          '  <button class="text-text-muted hover:text-on-surface transition-colors cursor-pointer" data-action="close-pitch" aria-label="Close Pitch Modal">' +
+          '    <span class="material-symbols-outlined text-[24px]">close</span>' +
+          '  </button>' +
+          '</div>' +
+          '<div class="py-6 text-center flex flex-col items-center">' +
+          '  <p class="font-body-lg text-body-lg text-text-muted max-w-md leading-relaxed mb-8">' +
+          '    Applications are currently closed. Please check back soon.' +
+          '  </p>' +
+          '  <button type="button" data-action="close-pitch" class="px-8 py-3 bg-primary-container text-on-surface font-label-mono-lg uppercase font-medium hover:bg-accent-hover transition-all cursor-pointer">' +
+          '    CLOSE' +
+          '  </button>' +
+          '</div>';
+      }
+    } else {
+      if (card && originalPitchModalCardHtml) {
+        card.innerHTML = originalPitchModalCardHtml;
+      }
     }
+
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
   };
 
   window.closePitchModal = function () {

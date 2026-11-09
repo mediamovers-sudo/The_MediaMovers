@@ -16,37 +16,10 @@
   var membersError = null;
   var advisorsLoading = false;
   var advisorsError = null;
+  var wirePhotosLoading = false;
+  var wirePhotosError = null;
 
-  window.wirePhotos = [
-    {
-      reelId: "[ REEL #104 ]",
-      title: "TESTING ANAMORPHIC FLARES ON QUAD FOUNTAINS",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuA5mBJS8gm7NXtOCyyB-hjG7pHtKFbFtyBK_fWwTp0k1cJTp0G6SCWbKo5vZ0r23o5PkWF1huRBZfIfYb340nl4IhzLITIXGaVUFgd0oI9PA-SMdbYOEPG8yHw6W9PspSHP8DHNZTynFwHDudR0PrhwpI-0fzg1Tu_Hg_dyvO0QtzTSWjRVEi6rF_hZnCRh4wBSXo035f6pMjusA7muRQji66ZF-5E3ev5HY0qZBQX__oqg53a9mvJ5ZA",
-      tag: "// ON THE WIRE \u2014 REEL #104",
-      desc: "Optical tests capturing 2.39:1 horizontal anamorphic streak flare patterns across the illuminated university quad fountains at midnight."
-    },
-    {
-      reelId: "[ REEL #105 ]",
-      title: "GOLDEN HOUR GOLDEN JUBILEE SESSIONS",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBrSckkD0-KZm8TxAFkMA7lP_YRTuQr3TVkAsAyw_N89S-F9haafhdDDGQthXaeCcG6I2si3_KXjYTy39bXdmNFjKT2afR9sgB0pE5-cGOkjxlY--9R8PO-otrGd43m6zHE7E6euUIOth8HyfbC7YstlZ7tuokNqaW4N4qkgNsvrgPRHXTn6Pl-n0ADDJ4robuJJ3i_71Hh_JJQBkNIRD3nlOhmHe5nt7Zp_3ONXBjbvfcRSkbqGzZNUw",
-      tag: "// ON THE WIRE \u2014 REEL #105",
-      desc: "Cinematographers shooting handheld golden hour sequences on NIST campus cobblestones using prime cinema glass."
-    },
-    {
-      reelId: "[ REEL #106 ]",
-      title: "RE-RECORDING CONVOCATION VOICEOVER STEMS",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBje00nEw_y965Kb9PCTIK64oxEcg9hRsog7pbvMJp73vWxlqxurPlrWdP2se0uz5SnW2F_T4M4CSQ6EjRrRXQay44d-i_ok-zO4V2MD54S6u9ZT7EUG04_mdZlkQQEnnAzXOxgdctp2uVDfcJ6vVCoG3ws43UIbA9fxWJzlDVmdZpWd2LgTTXFLn1P1ivO5bXnFSdcsnlENG1VEXrhmNTLthgY33TXowM-ishSZpEEW_FzuhA81LtqvA",
-      tag: "// ON THE WIRE \u2014 REEL #106",
-      desc: "Foley studio faders and dynamic audio mastering for spatial multi-channel commencement broadcast."
-    },
-    {
-      reelId: "[ REEL #107 ]",
-      title: "WRAP ON SHORT FILM 'LATENCY 2025'",
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCQsndK_lerGGNqmVdITV1WJTi8279ctRzXeR6eEalSO3ftbNzmj1qVNiAUIQzsJACYR3DYS26bOQw_WcBFXL5hQTwYmpF0Ep1SE0R9KzN4nk773ybOO9XlnITPjhGd4654BRu8GDbNcOq0Sv27kYe1p2tM9jQZUNy7Y4ezCWwtjQ1OYebLkRV0fdUOdecDiTxXvllMemdam3thsqyV_CNJNGAw8jFbSeFuCWiYfHCq4XByvK_ZYeZtWw",
-      tag: "// ON THE WIRE \u2014 REEL #107",
-      desc: "Final slate mark and principal photography wrap on the student-written sci-fi thriller Latency."
-    }
-  ];
+  window.wirePhotos = [];
 
   function renderAdvisors() {
     var section = document.getElementById('advisors-section');
@@ -221,13 +194,41 @@
 
   function renderWirePhotos() {
     var grid = document.getElementById('wire-photos-grid');
-    if (!grid || !Array.isArray(window.wirePhotos) || window.wirePhotos.length === 0) return;
+    if (!grid) return;
+
+    // Loading state
+    if (wirePhotosLoading) {
+      grid.innerHTML =
+        '<div class="col-span-full py-16 flex items-center justify-center">' +
+        '<span class="font-label-mono-sm text-label-mono-sm uppercase text-text-muted tracking-widest px-4 py-2 border border-border-hairline bg-surface-slate/60 inline-flex items-center gap-2.5">' +
+        '<span class="w-1.5 h-1.5 bg-primary-container rounded-full rec-dot"></span>' +
+        'LOADING DISPATCHES...' +
+        '</span>' +
+        '</div>';
+      return;
+    }
+
+    // Error or zero photos state
+    if (wirePhotosError || !Array.isArray(window.wirePhotos) || window.wirePhotos.length === 0) {
+      grid.innerHTML =
+        '<div class="col-span-full py-12 flex flex-col items-center justify-center text-center">' +
+        '<p class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest">Photos coming soon</p>' +
+        '</div>';
+      return;
+    }
+
+    // Render photos
     grid.innerHTML = '';
     window.wirePhotos.forEach(function (p, idx) {
       var item = document.createElement('div');
       item.className = 'relative group overflow-hidden border border-border-hairline aspect-square bg-surface-slate reveal-item cursor-pointer select-none';
       item.setAttribute('data-action', 'open-wire');
       item.setAttribute('data-wire-index', String(idx));
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('aria-label', p.title ? ('View photo: ' + p.title) : 'View photo');
+      var delayMs = (idx % 8) * 80;
+      item.style.transitionDelay = delayMs + 'ms';
       item.innerHTML =
         '<img alt="' + (p.title || 'Wire photo') + '" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700 ease-out pointer-events-none" src="' + (p.image || '') + '">' +
         '<div class="absolute inset-0 bg-surface-pitch/75 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 pointer-events-none">' +
@@ -236,6 +237,7 @@
         '</div>';
       grid.appendChild(item);
     });
+
     if (typeof window.observeNewRevealItems === 'function') {
       window.observeNewRevealItems(grid);
     }
@@ -368,10 +370,15 @@
     } catch (e) { console.error('[MediaMovers] Failed to load work items:', e.message); }
 
     // 3. Fetch Wire Photos
+    wirePhotosLoading = true;
+    wirePhotosError = null;
+    renderWirePhotos();
+
     try {
       var pRes = await fetch('/api/wire-photos');
       if (pRes.ok) {
         var pData = await pRes.json();
+        wirePhotosLoading = false;
         if (Array.isArray(pData) && pData.length > 0) {
           window.wirePhotos = pData.map(function (p) {
             return {
@@ -384,9 +391,20 @@
           });
           renderWirePhotos();
           console.log('[MediaMovers] ✓ Loaded ' + pData.length + ' wire photos from API');
+        } else {
+          window.wirePhotos = [];
+          renderWirePhotos();
         }
+      } else {
+        throw new Error('API returned status ' + pRes.status);
       }
-    } catch (e) { console.error('[MediaMovers] Failed to load wire photos:', e.message); }
+    } catch (e) {
+      wirePhotosLoading = false;
+      wirePhotosError = e;
+      window.wirePhotos = [];
+      console.error('[MediaMovers] Failed to load wire photos:', e.message);
+      renderWirePhotos();
+    }
   }
 
   function initApplicationForm() {
@@ -394,6 +412,18 @@
     if (!crewForm) return;
     crewForm.addEventListener('submit', async function (ev) {
       ev.preventDefault();
+
+      var isOpen = (typeof JOIN_OPEN !== 'undefined') ? JOIN_OPEN : (window.JOIN_OPEN !== undefined ? window.JOIN_OPEN : true);
+      if (!isOpen) {
+        var statusMsgEl = document.getElementById('apply-form-status');
+        if (statusMsgEl) {
+          statusMsgEl.className = 'text-xs font-mono text-red-400 py-2';
+          statusMsgEl.textContent = 'ERR: Applications are closed.';
+          statusMsgEl.classList.remove('hidden');
+        }
+        return;
+      }
+
       var btn = document.getElementById('apply-submit-btn');
       var statusMsg = document.getElementById('apply-form-status');
       var originalBtnText = btn ? btn.textContent : 'TRANSMIT APPLICATION';
