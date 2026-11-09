@@ -110,15 +110,15 @@
       }
 
       card.innerHTML =
-        '<div>' +
+        '<div class="flex-1 flex flex-col mb-4">' +
         '<div class="w-full aspect-[4/5] sm:h-80 overflow-hidden border border-border-hairline relative mb-5 bg-surface-pitch flex items-center justify-center">' +
         '<img alt="' + name + '" class="w-full h-full object-cover sm:object-cover portrait:object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500 ease-out" src="' + photo + '">' +
         '</div>' +
-        '<div class="font-label-mono-sm text-label-mono-sm text-primary-container uppercase tracking-widest">' + desig + '</div>' +
-        '<h3 class="font-headline-lg text-2xl uppercase text-on-surface group-hover:text-primary transition-colors mt-1">' + name + '</h3>' +
+        '<h3 class="font-headline-lg text-2xl uppercase text-brand-blue group-hover:text-primary transition-colors leading-snug break-words">' + name + '</h3>' +
+        '<div class="font-label-mono-sm text-label-mono-sm text-primary-container uppercase tracking-widest mt-1.5">' + desig + '</div>' +
         (quoteText ? '<p class="font-body-sm text-body-sm text-text-muted mt-3 italic leading-relaxed">' + quoteText + '</p>' : '') +
         '</div>' +
-        '<div class="pt-4 mt-5 border-t border-border-hairline flex items-center justify-between font-label-mono-sm text-label-mono-sm text-text-muted">' +
+        '<div class="pt-4 mt-auto border-t border-border-hairline flex items-center justify-between font-label-mono-sm text-label-mono-sm text-text-muted">' +
         '<span>' + dept + '</span>' +
         '<div class="flex items-center gap-2">' + socialIcons + '</div>' +
         '</div>';
@@ -187,23 +187,26 @@
       card.className = 'border border-border-hairline bg-surface-slate/80 p-5 group flex flex-col justify-between hover:border-primary-container hover:-translate-y-1.5 transition-all duration-300 reveal-item cursor-pointer select-none';
       card.setAttribute('data-action', 'open-member');
       card.setAttribute('data-member-index', String(idx));
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-label', 'View more about ' + name);
       card.style.transitionDelay = delayMs + 'ms';
 
       card.innerHTML =
-        '<div>' +
+        '<div class="flex-1 flex flex-col mb-4">' +
         '<div class="w-full h-64 overflow-hidden border border-border-hairline relative mb-4 bg-surface-pitch pointer-events-none">' +
         '<img alt="' + name + '" class="w-full h-full object-cover grayscale contrast-125 group-hover:scale-105 group-hover:grayscale-0 transition-all duration-500 ease-out" src="' + photo + '">' +
         '<div class="absolute inset-0 bg-surface-pitch/50 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">' +
-        '<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-pitch/90 border border-primary-container text-primary font-label-mono-sm text-[11px] uppercase tracking-widest backdrop-blur-sm shadow-md">' +
-        '<span class="material-symbols-outlined text-[15px]">zoom_in</span> VIEW DOSSIER' +
+        '<span class="inline-flex items-center gap-1.5 px-3 py-1 bg-surface-pitch/90 border border-primary-container text-primary font-label-mono-sm text-[11px] uppercase tracking-widest backdrop-blur-sm shadow-md" aria-hidden="true">' +
+        '<span class="material-symbols-outlined text-[15px]">zoom_in</span> VIEW MORE' +
         '</span>' +
         '</div>' +
         '</div>' +
-        '<div class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest pointer-events-none">' + role + '</div>' +
-        '<h4 class="font-headline-md text-headline-md uppercase text-on-surface group-hover:text-primary transition-colors mt-1 pointer-events-none">' + name + '</h4>' +
-        (quoteText ? '<p class="font-body-sm text-body-sm text-text-muted mt-2 italic pointer-events-none">' + quoteText + '</p>' : '') +
+        '<h4 class="font-headline-md text-headline-md uppercase text-brand-blue group-hover:text-primary transition-colors pointer-events-none leading-snug break-words">' + name + '</h4>' +
+        '<div class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest mt-1.5 pointer-events-none">' + role + '</div>' +
+        (quoteText ? '<p class="font-body-sm text-body-sm text-text-muted mt-2 italic pointer-events-none leading-relaxed">' + quoteText + '</p>' : '') +
         '</div>' +
-        '<div class="pt-4 mt-4 border-t border-border-hairline flex items-center justify-between font-label-mono-sm text-label-mono-sm text-text-muted pointer-events-none">' +
+        '<div class="pt-4 mt-auto border-t border-border-hairline flex items-center justify-between font-label-mono-sm text-label-mono-sm text-text-muted pointer-events-none">' +
         '<span>DEPT: ' + dept + '</span>' +
         '<span class="text-on-surface group-hover:text-primary transition-colors">' + handle + '</span>' +
         '</div>';

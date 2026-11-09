@@ -184,6 +184,35 @@
       border-bottom-color: #FF5E1E !important;
     }
 
+    /* Desktop nav links: consistent size for active and inactive, orange hover */
+    header nav .nav-link {
+      font-size: 15px !important;
+      line-height: 20px !important;
+      letter-spacing: 0.08em !important;
+      font-weight: 500 !important;
+      white-space: nowrap;
+    }
+    header nav .nav-link:hover {
+      color: #FF5E1E !important;
+    }
+    header nav .nav-link[aria-current="page"]:hover {
+      color: #FFFFFF !important;
+    }
+
+    /* Mobile drawer links: larger tap-friendly size */
+    #mobile-drawer .drawer-link[data-path] {
+      font-size: 17px !important;
+      line-height: 22px !important;
+      letter-spacing: 0.08em !important;
+      font-weight: 500 !important;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+    }
+    #mobile-drawer .drawer-link[data-path]:hover {
+      color: #FF5E1E !important;
+    }
+
     /* Join Collective button in header */
     header a[data-path="join-collective"] {
       background-color: rgba(255, 255, 255, 0.12) !important;
@@ -248,8 +277,23 @@
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      text-decoration: none;
+      text-decoration: none !important;
+      border-bottom: none !important;
+      outline: none;
       cursor: pointer;
+    }
+
+    .header-brand-link:hover,
+    .header-brand-link:active,
+    .header-brand-link:focus,
+    .header-brand-link:focus-visible {
+      text-decoration: none !important;
+      border-bottom: none !important;
+    }
+
+    .header-brand-link:focus-visible {
+      outline: 2px solid rgba(255, 255, 255, 0.4);
+      outline-offset: 4px;
     }
 
     .header-brand-logo {
@@ -805,4 +849,9 @@
 
     .devcredit-link-item:hover .devcredit-link-arrow {
       transform: translate(2px, -2px);
+    }
+
+    /* Brand Blue Utility */
+    .text-brand-blue {
+      color: #3B499B;
     }

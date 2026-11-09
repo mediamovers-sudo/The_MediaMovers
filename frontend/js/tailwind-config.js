@@ -105,6 +105,8 @@ tailwind.config = {
             "headline-lg": ["48px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
             "label-mono-lg": ["13px", { "lineHeight": "18px", "letterSpacing": "0.08em", "fontWeight": "500" }],
             "label-mono-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.1em", "fontWeight": "400" }],
+            "nav-desktop": ["15px", { "lineHeight": "20px", "letterSpacing": "0.08em", "fontWeight": "500" }],
+            "nav-drawer": ["17px", { "lineHeight": "22px", "letterSpacing": "0.08em", "fontWeight": "500" }],
             "headline-xl": ["72px", { "lineHeight": "68px", "letterSpacing": "-0.03em", "fontWeight": "400" }],
             "display-hero-mobile": ["56px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "400" }],
             "headline-xl-mobile": ["40px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "400" }]

@@ -8,22 +8,6 @@
 <!-- ========================================================================= -->
 <section
   class="relative w-full px-margin-mobile lg:px-margin pt-12 pb-24 overflow-hidden border-b border-border-hairline bg-surface-pitch">
-  <!-- Top Metadata Bar -->
-  <div
-    class="w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-8 border-b border-border-hairline reveal-item">
-    <div class="flex items-center gap-3">
-      <span
-        class="inline-flex items-center gap-2 px-2.5 py-1 bg-surface-container border border-border-hairline font-label-mono-sm text-label-mono-sm uppercase text-text-muted">
-        <span class="w-2 h-2 rounded-full bg-primary-container rec-dot"></span>
-        REC [<span class="font-mono text-on-surface" id="hero-timecode">00:24:30:05</span>]
-      </span>
-    </div>
-    <div
-      class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase tracking-widest flex items-center gap-2">
-      <span class="text-primary-container font-semibold">NIST</span>
-      <span class="text-primary-container font-semibold">UNIVERSITY • INSTITUTE PARK • BERHAMPUR</span>
-    </div>
-  </div>
   <!-- Editorial Monumental Typography -->
   <div class="py-16 lg:py-24">
     <h1
@@ -83,6 +67,44 @@
       <div></div>
     </div>
     <!-- Bottom Metadata Bar inside Camera Frame -->
+  </div>
+  <!-- Metric Stat Tiles (moved below group photo) -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-12 lg:mt-16 w-full">
+    <div
+      class="p-4 sm:p-5 bg-surface-slate border border-border-hairline flex flex-col justify-between group hover:border-primary-container hover:-translate-y-1 transition-all duration-300 reveal-item">
+      <div class="mt-4">
+        <span
+          class="font-headline-lg text-2xl sm:text-3xl lg:text-headline-lg uppercase text-on-surface font-normal group-hover:text-primary transition-colors">20+</span>
+        <p class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase mt-1">ACTIVE SPECIALISTS</p>
+      </div>
+    </div>
+    <div
+      class="p-4 sm:p-5 bg-surface-slate border border-border-hairline flex flex-col justify-between group hover:border-primary-container hover:-translate-y-1 transition-all duration-300 reveal-item"
+      style="transition-delay: 80ms;">
+      <div class="mt-4">
+        <span
+          class="font-headline-lg text-2xl sm:text-3xl lg:text-headline-lg uppercase text-on-surface font-normal group-hover:text-primary transition-colors">5</span>
+        <p class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase mt-1">BEYOND CAMPUS SERIES</p>
+      </div>
+    </div>
+    <div
+      class="p-4 sm:p-5 bg-surface-slate border border-border-hairline flex flex-col justify-between group hover:border-primary-container hover:-translate-y-1 transition-all duration-300 reveal-item"
+      style="transition-delay: 160ms;">
+      <div class="mt-4">
+        <span
+          class="font-headline-lg text-2xl sm:text-3xl lg:text-headline-lg uppercase text-primary-container font-normal group-hover:scale-105 inline-block transition-transform origin-left">1.5M</span>
+        <p class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase mt-1">CROSS-PLATFORM VIEWS</p>
+      </div>
+    </div>
+    <div
+      class="p-4 sm:p-5 bg-surface-slate border border-border-hairline flex flex-col justify-between group hover:border-primary-container hover:-translate-y-1 transition-all duration-300 reveal-item"
+      style="transition-delay: 240ms;">
+      <div class="mt-4">
+        <span
+          class="font-headline-lg text-2xl sm:text-3xl lg:text-headline-lg uppercase text-on-surface font-normal group-hover:text-primary transition-colors">100%</span>
+        <p class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase mt-1">STUDENT-DIRECTED</p>
+      </div>
+    </div>
   </div>
   <!-- Scroll Prompter -->
   <div
@@ -176,50 +198,6 @@
             <div class="font-headline-md text-headline-md text-on-surface">DRDO SCIENTISTS ON STEALTH TECHNOLOGY
               & ACADEMIA'S ROLE
             </div>
-          </div>
-        </div>
-      </div>
-      <!-- Metric Stat Tiles (Staggered hover effects) -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div
-          class="p-5 bg-surface-slate border border-border-hairline flex flex-col justify-between group hover:border-primary-container hover:-translate-y-1 transition-all duration-300 reveal-item">
-          <div class="mt-4">
-            <span
-              class="font-headline-lg text-headline-lg uppercase text-on-surface font-normal group-hover:text-primary transition-colors">20+</span>
-            <p class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase mt-1">ACTIVE SPECIALISTS
-            </p>
-          </div>
-        </div>
-        <div
-          class="p-5 bg-surface-slate border border-border-hairline flex flex-col justify-between group hover:border-primary-container hover:-translate-y-1 transition-all duration-300 reveal-item"
-          style="transition-delay: 80ms;">
-
-          <div class="mt-4">
-            <span
-              class="font-headline-lg text-headline-lg uppercase text-on-surface font-normal group-hover:text-primary transition-colors">5</span>
-            <p class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase mt-1">BEYOND CAMPUS SERIES
-            </p>
-          </div>
-        </div>
-        <div
-          class="p-5 bg-surface-slate border border-border-hairline flex flex-col justify-between group hover:border-primary-container hover:-translate-y-1 transition-all duration-300 reveal-item"
-          style="transition-delay: 160ms;">
-
-          <div class="mt-4">
-            <span
-              class="font-headline-lg text-headline-lg uppercase text-primary-container font-normal group-hover:scale-105 inline-block transition-transform origin-left">1.5M</span>
-            <p class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase mt-1">CROSS-PLATFORM VIEWS
-            </p>
-          </div>
-        </div>
-        <div
-          class="p-5 bg-surface-slate border border-border-hairline flex flex-col justify-between group hover:border-primary-container hover:-translate-y-1 transition-all duration-300 reveal-item"
-          style="transition-delay: 240ms;">
-
-          <div class="mt-4">
-            <span
-              class="font-headline-lg text-headline-lg uppercase text-on-surface font-normal group-hover:text-primary transition-colors">100%</span>
-            <p class="font-label-mono-sm text-label-mono-sm text-text-muted uppercase mt-1">STUDENT-DIRECTED</p>
           </div>
         </div>
       </div>

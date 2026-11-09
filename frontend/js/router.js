@@ -76,7 +76,7 @@
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
     // Update nav active state (desktop navigation bar)
-    document.querySelectorAll('[data-path]').forEach(function (link) {
+    document.querySelectorAll('nav[data-active-classes] [data-path]').forEach(function (link) {
       if (link.closest('#mobile-drawer')) return;
       var isActive = link.dataset.path === route;
       if (isActive) {
@@ -86,9 +86,7 @@
       } else {
         link.removeAttribute('aria-current');
         activeClasses.forEach(function (c) { link.classList.remove(c); });
-        if (link.closest('nav[data-active-classes]')) {
-          inactiveClasses.forEach(function (c) { link.classList.add(c); });
-        }
+        inactiveClasses.forEach(function (c) { link.classList.add(c); });
       }
     });
 
